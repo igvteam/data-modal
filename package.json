@@ -1,0 +1,12 @@
+{
+  "name": "dataModal",
+  "version": "0.1.0",
+  "description": "Data browser table widget",
+  "files": [
+    "js/**"
+  ],
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
+}
