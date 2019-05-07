@@ -24,6 +24,13 @@
  * THE SOFTWARE.
  */
 
+
+/**
+ * Datasource for a modal table for browsing ENCODE resources.  The datasource is initialized with a genome ID, and
+ * fetches table data from the magic url.
+ */
+
+
 import getDataWrapper from './dataWrapper.js'
 
 const columns = [
