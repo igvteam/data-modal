@@ -92,7 +92,8 @@ class ModalTable {
                 this.startSpinner()
                 const datasource = this.datasource
                 const tableData = await datasource.tableData()
-                const columnFormat = datasource.tableColumns().map(c => ({title: c, data: c}))
+                const tableColumns = await datasource.tableColumns()
+                const columnFormat = tableColumns.map(c => ({title: c, data: c}))
                 const config =
                     {
                         data: tableData,
@@ -107,6 +108,7 @@ class ModalTable {
 
                 this.tableData = tableData
                 this.$dataTable = this.$table.dataTable(config)
+                this.$dataTable.columns.adjust().draw()
 
                 this.$table.find('tbody').on('click', 'tr', function () {
 

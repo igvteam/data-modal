@@ -26,10 +26,11 @@
  *
  */
 
-import ModalTable from './js/modalTable.js'
-import EncodeDataSource from './js/encode.js'
+import ModalTable from '../js/modalTable.js'
+import EncodeDataSource from '../js/encode.js'
 
 
+// Create a modal for ENCODE with "dm3" as the initial data source
 const encodeModal = new ModalTable({
     id: "encodeModal",
     title: "ENCODE",
@@ -38,7 +39,8 @@ const encodeModal = new ModalTable({
 })
 
 
-
+// Update the modal with a new datasource on genome change.  Setting the datasource will clear the modal,
+// causing the data table to be rebuilt opon opening
 $("#genome-select").change(function (e) {
     $("#genome-select option:selected").each(function () {
         const genomeId = this.value
@@ -47,4 +49,32 @@ $("#genome-select").change(function (e) {
     })
 })
 
+
+
+// Trivial example datasource
+
+class TestDataSource {
+
+    async tableColumns() {
+        return ["A", "B", "C"]
+    }
+
+    async tableData() {
+        return [
+            {"A": "A 1", "B": "B 1", "C": "C 1"},
+            {"A": "A 2", "B": "B 2", "C": "C 3"},
+        ]
+    }
+}
+
+
+
+// Create another modal using the test datasource
+
+const testSourceModal = new ModalTable({
+    id: "simpleModal",
+    title: "TEST",
+    datasource: new TestDataSource(),
+    selectHandler: selected => console.log(selected)
+})
 

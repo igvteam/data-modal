@@ -50,7 +50,7 @@ class EncodeDataSource {
         return this.fetchData()
     };
 
-    tableColumns() {
+    async tableColumns() {
         return columns;
     };
 
