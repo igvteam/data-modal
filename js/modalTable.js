@@ -1,11 +1,9 @@
-
-
 class ModalTable {
 
-    constructor (args) {
+    constructor(args) {
 
         this.datasource = args.datasource
-        this.selectHandler =  args.selectHandler
+        this.selectHandler = args.selectHandler
 
         const id = args.id
         const title = args.title || ''
@@ -71,7 +69,7 @@ class ModalTable {
         })
     }
 
-    remove () {
+    remove() {
         this.$modal.remove()
     }
 
@@ -108,7 +106,7 @@ class ModalTable {
 
                 this.tableData = tableData
                 this.$dataTable = this.$table.dataTable(config)
-                this.$dataTable.columns.adjust().draw()
+                this.$table.api().columns.adjust().draw()   // Don't try to simplify this, you'll break it
 
                 this.$table.find('tbody').on('click', 'tr', function () {
 
@@ -134,9 +132,9 @@ class ModalTable {
         const result = []
         if ($rows.length > 0) {
             $rows.removeClass('selected')
-            const dt = this.$table.DataTable()
+            const api = this.$table.api()
             $rows.each(function () {
-                const index = dt.row(this).index()
+                const index = api.row(this).index()
                 result.push(tableData[index])
             })
         }

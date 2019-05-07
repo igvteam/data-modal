@@ -27,7 +27,7 @@
  */
 
 import ModalTable from '../js/modalTable.js'
-import EncodeDataSource from '../js/encode.js'
+import EncodeDataSource from '../js/encodeDataSource.js'
 
 
 // Create a modal for ENCODE with "dm3" as the initial data source
