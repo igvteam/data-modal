@@ -146,8 +146,8 @@ function encodeSort(a, b) {
 
     aa1 = a['Assay Type'];
     aa2 = b['Assay Type'];
-    cc1 = a['Cell Type'];
-    cc2 = b['Cell Type'];
+    cc1 = a['Biosample'];
+    cc2 = b['Biosample'];
     tt1 = a['Target'];
     tt2 = b['Target'];
 
