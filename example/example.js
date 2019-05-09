@@ -34,7 +34,7 @@ import EncodeDataSource from '../js/encodeDataSource.js'
 const encodeModal = new ModalTable({
     id: "encodeModal",
     title: "ENCODE",
-    datasource: new EncodeDataSource("dm3"),
+    //datasource: new EncodeDataSource("dm3"),
     selectHandler: selected => console.log(selected)
 })
 

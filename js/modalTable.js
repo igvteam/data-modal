@@ -81,7 +81,7 @@ class ModalTable {
 
     buildTable = async function () {
 
-        if (!this.$table) {
+        if (!this.$table && this.datasource) {
 
             this.$table = $('<table cellpadding="0" cellspacing="0" border="0" class="display"></table>')
             this.$datatableContainer.append(this.$table)
