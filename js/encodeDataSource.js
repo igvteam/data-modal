@@ -63,12 +63,17 @@ class EncodeDataSource {
 
     async fetchData() {
 
-        const url = "https://s3.amazonaws.com/igv.org.app/encode/" + this.genomeId + ".txt"
+        const id = canonicalId(this.genomeId)
+        const url = "https://s3.amazonaws.com/igv.org.app/encode/" + id + ".txt"
         const response = await fetch(url)
         const data = await response.text()
         const records = parseTabData(data, this.filter)
         records.sort(encodeSort)
         return records
+    }
+
+    static knownGenomes() {
+        return new Set(["ce10", "ce11", "dm3", "dm6", "GRCh38", "hg19", "mm9", "mm10"])
     }
 
 }
@@ -172,6 +177,27 @@ function encodeSort(a, b) {
             return 1;
         }
     }
+}
+
+function canonicalId(genomeId) {
+
+    switch(genomeId) {
+        case "hg38":
+            return "GRCh38"
+        case "CRCh37":
+            return "hg19"
+        case "GRCm38":
+            return "mm10"
+        case "NCBI37":
+            return "mm9"
+        case "WBcel235":
+            return "ce11"
+        case "WS220":
+            return "ce10"
+        default:
+            return genomeId
+    }
+
 }
 
 export default EncodeDataSource
