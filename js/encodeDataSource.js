@@ -73,7 +73,7 @@ class EncodeDataSource {
     }
 
     static supportsGenome(genomeId) {
-        const knownGenomes = Set(["ce10", "ce11", "dm3", "dm6", "GRCh38", "hg19", "mm9", "mm10"])
+        const knownGenomes = new Set(["ce10", "ce11", "dm3", "dm6", "GRCh38", "hg19", "mm9", "mm10"])
         const id = canonicalId(genomeId)
         return knownGenomes.has(id)
     }
