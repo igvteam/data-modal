@@ -45,7 +45,8 @@ $("#genome-select").change(function (e) {
     $("#genome-select option:selected").each(function () {
         const genomeId = this.value
         const datasource = new EncodeDataSource(genomeId)
-        encodeModal.setDatasource(datasource)
+        const filter = (record) => record["Format"].toLowerCase() === "bigwig"
+        encodeModal.setDatasource(datasource, filter)
     })
 })
 

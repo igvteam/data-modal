@@ -79,7 +79,7 @@ class ModalTable {
         this.$table = undefined
     }
 
-    buildTable = async function () {
+    async buildTable () {
 
         if (!this.$table && this.datasource) {
 
@@ -142,13 +142,13 @@ class ModalTable {
     }
 
 
-    startSpinner = function () {
+    startSpinner () {
         if (this.$spinner)
             this.$spinner.show()
     }
 
 
-    stopSpinner = function () {
+    stopSpinner () {
         if (this.$spinner)
             this.$spinner.hide()
     }

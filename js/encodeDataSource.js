@@ -48,9 +48,10 @@ const columns = [
 
 class EncodeDataSource {
 
-    constructor(genomeId) {
+    constructor(genomeId, filter, suffix) {
         this.genomeId = genomeId
-        this.filter = (record) => record["Format"].toLowerCase() === "bigwig"
+        this.filter = filter
+        this.suffix = suffix || ".txt"
     };
 
     async tableData() {
@@ -64,7 +65,7 @@ class EncodeDataSource {
     async fetchData() {
 
         const id = canonicalId(this.genomeId)
-        const url = "https://s3.amazonaws.com/igv.org.app/encode/" + id + ".txt"
+        const url = "https://s3.amazonaws.com/igv.org.app/encode/" + id + this.suffix
         const response = await fetch(url)
         const data = await response.text()
         const records = parseTabData(data, this.filter)
