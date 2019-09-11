@@ -5,7 +5,7 @@
   "files": [
     "js/**"
   ],
-  "module": "js/index.mjs",
+  "module": "js/index.js",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^5.2.0"
