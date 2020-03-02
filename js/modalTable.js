@@ -108,7 +108,7 @@ class ModalTable {
                 }
 
                 this.tableData = tableData
-                this.$dataTable = this.$table.DataTable(config)
+                this.$dataTable = this.$table.dataTable(config)
                 this.$table.api().columns.adjust().draw()   // Don't try to simplify this, you'll break it
 
                 this.$table.find('tbody').on('click', 'tr', function () {

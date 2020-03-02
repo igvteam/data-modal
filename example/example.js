@@ -63,12 +63,12 @@ class TestDataSource {
                 {
                     targets: [ 1 ],
                     visible: false,
-                    searchable: false
+                    // searchable: false
                 },
                 {
                     targets: [ 2 ],
                     visible: false,
-                    searchable: false
+                    // searchable: false
                 }
             ];
 
