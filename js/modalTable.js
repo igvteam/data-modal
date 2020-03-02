@@ -101,10 +101,14 @@ class ModalTable {
                         scrollY: '400px',
                         scroller: true,
                         scrollCollapse: true
-                    }
+                    };
+
+                if (Reflect.has(datasource, 'columnDefs')) {
+                    config.columnDefs = datasource.columnDefs;
+                }
 
                 this.tableData = tableData
-                this.$dataTable = this.$table.dataTable(config)
+                this.$dataTable = this.$table.DataTable(config)
                 this.$table.api().columns.adjust().draw()   // Don't try to simplify this, you'll break it
 
                 this.$table.find('tbody').on('click', 'tr', function () {
