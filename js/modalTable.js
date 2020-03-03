@@ -101,7 +101,11 @@ class ModalTable {
                         scrollY: '400px',
                         scroller: true,
                         scrollCollapse: true
-                    }
+                    };
+
+                if (Reflect.has(datasource, 'columnDefs')) {
+                    config.columnDefs = datasource.columnDefs;
+                }
 
                 this.tableData = tableData
                 this.$dataTable = this.$table.dataTable(config)

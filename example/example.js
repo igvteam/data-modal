@@ -56,6 +56,24 @@ $("#genome-select").change(function (e) {
 
 class TestDataSource {
 
+    constructor() {
+
+        this.columnDefs =
+            [
+                {
+                    targets: [ 1 ],
+                    visible: false,
+                    // searchable: false
+                },
+                {
+                    targets: [ 2 ],
+                    visible: false,
+                    // searchable: false
+                }
+            ];
+
+    }
+
     async tableColumns() {
         return ["A", "B", "C"]
     }
@@ -66,6 +84,7 @@ class TestDataSource {
             {"A": "A 2", "B": "B 2", "C": "C 3"},
         ]
     }
+
 }
 
 
