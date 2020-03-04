@@ -34,6 +34,7 @@ import EncodeDataSource from '../js/encodeDataSource.js'
 const encodeModal = new ModalTable({
     id: "encodeModal",
     title: "ENCODE",
+    pageLength: 100,
     //datasource: new EncodeDataSource("dm3"),
     selectHandler: selected => console.log(selected)
 })
@@ -82,6 +83,8 @@ class TestDataSource {
         return [
             {"A": "A 1", "B": "B 1", "C": "C 1"},
             {"A": "A 2", "B": "B 2", "C": "C 3"},
+            {"A": "A 7", "B": "B 5", "C": "C 9"},
+            {"A": "A 11", "B": "B 3", "C": "C 15"},
         ]
     }
 
