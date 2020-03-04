@@ -4,6 +4,7 @@ class ModalTable {
 
         this.datasource = args.datasource
         this.selectHandler = args.selectHandler
+        this.pageLength = args.pageLength || 10
 
         const id = args.id
         const title = args.title || ''
@@ -95,6 +96,7 @@ class ModalTable {
                     {
                         data: tableData,
                         columns: columnFormat,
+                        pageLength: this.pageLength,
                         autoWidth: false,
                         paging: true,
                         scrollX: true,
