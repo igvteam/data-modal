@@ -4,7 +4,14 @@ class ModalTable {
 
         this.datasource = args.datasource
         this.selectHandler = args.selectHandler
+
         this.pageLength = args.pageLength || 10
+
+        if (args.selectionStyle) {
+            this.select = { style: args.selectionStyle }
+        } else {
+            this.select = true;
+        }
 
         const id = args.id
         const title = args.title || ''
@@ -97,6 +104,7 @@ class ModalTable {
                         data: tableData,
                         columns: columnFormat,
                         pageLength: this.pageLength,
+                        select: this.select,
                         autoWidth: false,
                         paging: true,
                         scrollX: true,
@@ -112,16 +120,6 @@ class ModalTable {
                 this.tableData = tableData
                 this.$dataTable = this.$table.dataTable(config)
                 this.$table.api().columns.adjust().draw()   // Don't try to simplify this, you'll break it
-
-                this.$table.find('tbody').on('click', 'tr', function () {
-
-                    if ($(this).hasClass('selected')) {
-                        $(this).removeClass('selected')
-                    } else {
-                        $(this).addClass('selected')
-                    }
-
-                })
 
             } catch (e) {
 

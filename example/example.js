@@ -35,6 +35,7 @@ const encodeModal = new ModalTable({
     id: "encodeModal",
     title: "ENCODE",
     pageLength: 100,
+    selectionStyle: 'multi',
     //datasource: new EncodeDataSource("dm3"),
     selectHandler: selected => console.log(selected)
 })
