@@ -138,7 +138,7 @@ function constructName(record) {
 
     name += " " + record["Output Type"];
 
-    name += " " + record["Experiment"];
+    name += " " + record["Accession"];
 
     return name
 
