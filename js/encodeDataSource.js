@@ -109,7 +109,8 @@ function parseTabData(data, filter) {
             "Tech Rep": tokens[6],
             "Accession": tokens[11]
         };
-        record["name"] = constructName(record)
+        // record["name"] = constructName(record)
+        record["name"] = record["Accession"]
 
         if (filter === undefined || filter(record)) {
             records.push(record);
