@@ -2,24 +2,10 @@ class GenericMapDatasource {
 
     constructor(config) {
 
+        this.isJSON = config.isJSON || false;
+
         if (config.genomeId) {
             this.genomeId = config.genomeId;
-        }
-
-        this.isJSON = config.isJSON;
-
-        this.columnDictionary = {};
-
-        this.parser = config.parser;
-
-        this.addIndexColumn = config.addIndexColumn;
-
-        for (let column of config.columns) {
-            this.columnDictionary[ column ] = column;
-        }
-
-        if (config.dataSetPath) {
-            this.path = config.dataSetPath;
         }
 
         if (config.dataSetPathPrefix) {
@@ -28,6 +14,18 @@ class GenericMapDatasource {
 
         if (config.urlPrefix) {
             this.urlPrefix = config.urlPrefix;
+        }
+
+        if (config.dataSetPath) {
+            this.path = config.dataSetPath;
+        }
+
+        this.addIndexColumn = config.addIndexColumn || false;
+
+        this.columnDictionary = {};
+
+        for (let column of config.columns) {
+            this.columnDictionary[ column ] = column;
         }
 
         if (config.hiddenColumns) {
@@ -39,6 +37,10 @@ class GenericMapDatasource {
 
         } else {
             this.columnDefs = undefined
+        }
+
+        if (config.parser) {
+            this.parser = config.parser;
         }
 
         if (config.selectionHandler) {
