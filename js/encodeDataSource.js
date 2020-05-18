@@ -135,10 +135,10 @@ function constructName(record) {
     // if (record["Tech Rep"]) {
     //     name += (record["Bio Rep"] ? ":" : " 0:") + record["Tech Rep"];
     // }
-
-    name += " " + record["Output Type"];
-
-    name += " " + record["Accession"];
+    //
+    // name += " " + record["Output Type"];
+    //
+    // name += " " + record["Accession"];
 
     return name
 
