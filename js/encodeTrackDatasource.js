@@ -80,6 +80,22 @@ class EncodeTrackDatasource extends GenericMapDatasource {
 
 function constructName(record) {
 
+    let name = record["Biosample"] || "";
+
+    if (record["Target"]) {
+        name += " " + record["Target"];
+    }
+    if (record["AssayType"].toLowerCase() !== "chip-seq") {
+        name += " " + record["AssayType"];
+    }
+
+
+    return name
+
+}
+
+function _constructName(record) {
+
     let name = record["Cell Type"] || "";
 
     if (record["Target"]) {
