@@ -129,12 +129,12 @@ function constructName(record) {
     if (record["Assay Type"].toLowerCase() !== "chip-seq") {
         name += " " + record["Assay Type"];
     }
-    if (record["Bio Rep"]) {
-        name += " " + record["Bio Rep"];
-    }
-    if (record["Tech Rep"]) {
-        name += (record["Bio Rep"] ? ":" : " 0:") + record["Tech Rep"];
-    }
+    // if (record["Bio Rep"]) {
+    //     name += " " + record["Bio Rep"];
+    // }
+    // if (record["Tech Rep"]) {
+    //     name += (record["Bio Rep"] ? ":" : " 0:") + record["Tech Rep"];
+    // }
 
     name += " " + record["Output Type"];
 
