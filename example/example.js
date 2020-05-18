@@ -38,8 +38,9 @@ const encodeModal = new ModalTable({
     pageLength: 100,
     selectionStyle: 'multi',
     //datasource: new EncodeDataSource("dm3"),
-    selectHandler: selectionList => console.log(selectionList)
-    // selectHandler: encodeTrackDatasourceConfigurator().selectionHandler
+    selectHandler: selectionList => {
+        console.log(selectionList)
+    }
 })
 
 
