@@ -121,7 +121,7 @@ function parseTabData(data, filter) {
 
 function constructName(record) {
 
-    let name = record["Cell Type"] || "";
+    let name = record["Biosample"] || "";
 
     if (record["Target"]) {
         name += " " + record["Target"];
