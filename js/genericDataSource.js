@@ -41,7 +41,9 @@ class GenericMapDatasource {
             this.columnDefs = undefined
         }
 
-        this.selectionHandler = config.selectionHandler;
+        if (config.selectionHandler) {
+            this.selectionHandler = config.selectionHandler;
+        }
 
     }
 

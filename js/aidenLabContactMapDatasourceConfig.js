@@ -30,8 +30,7 @@ const aidenLabContactMapDatasourceConfigurator = genomeId => {
                 'url'
             ],
         parser,
-        selectionHandler: selectionList => selectionList[ 0 ]
-
+        selectionHandler: undefined
     }
 
 }

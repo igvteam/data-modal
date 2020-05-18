@@ -30,11 +30,17 @@ const encodeContactMapDatasourceConfigurator = genomeId => {
             ],
         parser,
         selectionHandler: selectionList => {
-            const selection = selectionList[ 0 ]
-            const url = `${ urlPrefix }${ selection[ 'HREF' ] }`
-            const name = selection[ 'Description' ]
-            return { url, name }
-        }
+            return selectionList.map(({ HREF, Description }) => {
+                const url = `${ urlPrefix }${ HREF }`
+                return { url, name: Description }
+            })
+        },
+        // _selectionHandler: selectionList => {
+        //     const selection = selectionList[ 0 ]
+        //     const url = `${ urlPrefix }${ selection[ 'HREF' ] }`
+        //     const name = selection[ 'Description' ]
+        //     return { url, name }
+        // }
 
     }
 
