@@ -77,7 +77,11 @@ class GenericMapDatasource {
     }
 
     tableSelectionHandler(selectionList) {
-        return this.selectionHandler(selectionList);
+        if (this.selectionHandler) {
+            return this.selectionHandler(selectionList)
+        } else {
+            return selectionList
+        }
     };
 
 }

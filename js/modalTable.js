@@ -71,11 +71,7 @@ class ModalTable {
         $okButton.on('click', (e) => {
             const selected = this.getSelectedTableRowsData.call(this, this.$dataTable.$('tr.selected'))
             if (selected && this.selectHandler) {
-                if (this.datasource.selectionHandler) {
-                    this.selectHandler( this.datasource.selectionHandler(selected) )
-                } else {
-                    this.selectHandler(selected)
-                }
+                this.selectHandler(selected)
             }
         })
     }
@@ -144,8 +140,11 @@ class ModalTable {
                 const index = api.row(this).index()
                 result.push(tableData[index])
             })
+            return this.datasource.tableSelectionHandler(result)
+        } else {
+            return undefined;
         }
-        return result
+
     }
 
 
