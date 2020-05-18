@@ -1,13 +1,12 @@
-const discard = 'ID Assembly Biosample AssayType Target BioRep TechRep OutputType Format Lab HREF Accession Experiment'
 
-const encodeHostedTrackDatasourceConfigurator = genomeId => {
+const encodeTrackDatasourceConfigurator = genomeId => {
 
-    const config =
-        {
+    return {
             isJSON: false,
             genomeId,
             dataSetPathPrefix: 'https://www.encodeproject.org',
             urlPrefix: 'https://s3.amazonaws.com/igv.org.app/encode/',
+            dataSetPath: undefined,
             addIndexColumn: false,
             columns:
                 [
@@ -31,6 +30,7 @@ const encodeHostedTrackDatasourceConfigurator = genomeId => {
                     'Assembly',
                     'HREF'
                 ],
+            parser: undefined,
                 selectionHandler: selectionList => {
                         return selectionList.map(({ name, HREF }) => {
                                 return { name, url: HREF }
@@ -39,7 +39,6 @@ const encodeHostedTrackDatasourceConfigurator = genomeId => {
 
         }
 
-        return config
 }
 
-export { encodeHostedTrackDatasourceConfigurator }
+export { encodeTrackDatasourceConfigurator }

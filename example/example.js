@@ -28,8 +28,8 @@
 
 import ModalTable from '../js/modalTable.js'
 import EncodeDataSource from '../js/encodeDataSource.js'
-import BetterEncodeTrackDatasource from "../js/betterEncodeTrackDatasource.js";
-import { encodeHostedTrackDatasourceConfigurator } from "../js/encodeTrackDatasourceConfig.js";
+import EncodeTrackDatasource from "../js/encodeTrackDatasource.js";
+import { encodeTrackDatasourceConfigurator } from "../js/encodeTrackDatasourceConfig.js";
 
 // Create a modal for ENCODE with "dm3" as the initial data source
 const encodeModal = new ModalTable({
@@ -39,7 +39,7 @@ const encodeModal = new ModalTable({
     selectionStyle: 'multi',
     //datasource: new EncodeDataSource("dm3"),
     selectHandler: selectionList => console.log(selectionList)
-    // selectHandler: encodeHostedTrackDatasourceConfigurator().selectionHandler
+    // selectHandler: encodeTrackDatasourceConfigurator().selectionHandler
 })
 
 
@@ -52,7 +52,7 @@ $("#genome-select").change(function (e) {
         const genomeId = this.value
 
         // const datasource = new EncodeDataSource(genomeId)
-        const datasource = new BetterEncodeTrackDatasource(encodeHostedTrackDatasourceConfigurator(genomeId))
+        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
 
         // const filter = (record) => record["Format"].toLowerCase() === "bigwig"
         // encodeModal.setDatasource(datasource, filter)

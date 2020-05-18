@@ -1,7 +1,7 @@
 import GenericMapDatasource from "./genericDataSource.js";
 import getDataWrapper from './dataWrapper.js'
 
-class BetterEncodeTrackDatasource extends GenericMapDatasource {
+class EncodeTrackDatasource extends GenericMapDatasource {
 
     constructor(config) {
 
@@ -34,7 +34,6 @@ class BetterEncodeTrackDatasource extends GenericMapDatasource {
         }
 
     }
-
 
     parseTabData(str, filter, columnDictionary) {
 
@@ -69,6 +68,12 @@ class BetterEncodeTrackDatasource extends GenericMapDatasource {
         } // while(line)
 
         return records;
+    }
+
+    static supportsGenome(genomeId) {
+        const knownGenomes = new Set(["ce10", "ce11", "dm3", "dm6", "GRCh38", "hg19", "mm9", "mm10"])
+        const id = canonicalId(genomeId)
+        return knownGenomes.has(id)
     }
 
 }
@@ -157,4 +162,4 @@ function canonicalId(genomeId) {
 
 }
 
-export default BetterEncodeTrackDatasource
+export default EncodeTrackDatasource
