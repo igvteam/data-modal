@@ -109,17 +109,28 @@ class ModalTable {
                         paging: true,
                         scrollX: true,
                         scrollY: '400px',
-                        scroller: true,
-                        scrollCollapse: true
+                        // scroller: true,
+                        // scrollCollapse: true
                     };
 
-                if (Reflect.has(datasource, 'columnDefs')) {
+                if (datasource.columnDefs) {
                     config.columnDefs = datasource.columnDefs;
                 }
 
+                // API object
+                this.api = this.$table.DataTable(config);
+
+                // Preserve sort order. For some reason it gets garbled by default
+                // this.api.column( 0 ).data().sort().draw();
+
+                // Adjust column widths
+                this.api.columns.adjust().draw()
+
+                // jQuery object
+                this.$dataTable = this.$table.dataTable()
+
                 this.tableData = tableData
-                this.$dataTable = this.$table.dataTable(config)
-                this.$table.api().columns.adjust().draw()   // Don't try to simplify this, you'll break it
+
 
             } catch (e) {
 
@@ -128,7 +139,6 @@ class ModalTable {
             }
         }
     }
-
 
     getSelectedTableRowsData($rows) {
         const tableData = this.tableData
@@ -147,18 +157,15 @@ class ModalTable {
 
     }
 
-
     startSpinner () {
         if (this.$spinner)
             this.$spinner.show()
     }
 
-
     stopSpinner () {
         if (this.$spinner)
             this.$spinner.hide()
     }
-
 
 }
 
