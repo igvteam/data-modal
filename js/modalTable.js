@@ -90,31 +90,29 @@ class ModalTable {
 
         if (!this.$table && this.datasource) {
 
-            this.$table = $('<table cellpadding="0" cellspacing="0" border="0" class="display"></table>')
+            this.$table = $('<table class="display"></table>')
             this.$datatableContainer.append(this.$table)
 
             try {
                 this.startSpinner()
-                const datasource = this.datasource
-                const tableData = await datasource.tableData()
-                const tableColumns = await datasource.tableColumns()
-                const columnFormat = tableColumns.map(c => ({title: c, data: c}))
+
+                const tableData = await this.datasource.tableData()
+                const tableColumns = await this.datasource.tableColumns()
+
                 const config =
                     {
                         data: tableData,
-                        columns: columnFormat,
+                        columns: tableColumns.map(c => ({ title: c, data: c })),
                         pageLength: this.pageLength,
                         select: this.select,
                         autoWidth: false,
                         paging: true,
                         scrollX: true,
                         scrollY: '400px',
-                        // scroller: true,
-                        // scrollCollapse: true
                     };
 
-                if (datasource.columnDefs) {
-                    config.columnDefs = datasource.columnDefs;
+                if (this.datasource.columnDefs) {
+                    config.columnDefs = this.datasource.columnDefs;
                 }
 
                 // API object

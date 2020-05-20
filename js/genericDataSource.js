@@ -28,14 +28,22 @@ class GenericMapDatasource {
             this.columnDictionary[ column ] = column;
         }
 
-        if (config.hiddenColumns) {
+        if (config.hiddenColumns || config.titles) {
 
             this.columnDefs = [];
             const keys = Object.keys(this.columnDictionary);
-            this.columnDefs.push({ visible: false, searchable: false, targets: config.hiddenColumns.map(key => keys.indexOf(key)) })
-            // for (let column of config.hiddenColumns) {
-            //     this.columnDefs.push({ visible: false, searchable: false, targets: [ Object.keys(this.columnDictionary).indexOf(column) ] })
-            // }
+
+            if (config.hiddenColumns) {
+                for (let column of config.hiddenColumns) {
+                    this.columnDefs.push({ visible: false, searchable: false, targets: keys.indexOf(column) })
+                }
+            }
+
+            if (config.titles) {
+                for (let [ column, title ] of Object.entries(config.titles)) {
+                    this.columnDefs.push({ title, targets: keys.indexOf(column) })
+                }
+            }
 
         } else {
             this.columnDefs = undefined
