@@ -31,9 +31,11 @@ class GenericMapDatasource {
         if (config.hiddenColumns) {
 
             this.columnDefs = [];
-            for (let column of config.hiddenColumns) {
-                this.columnDefs.push({ visible: false, searchable: false, targets: [ Object.keys(this.columnDictionary).indexOf(column) ] })
-            }
+            const keys = Object.keys(this.columnDictionary);
+            this.columnDefs.push({ visible: false, searchable: false, targets: config.hiddenColumns.map(key => keys.indexOf(key)) })
+            // for (let column of config.hiddenColumns) {
+            //     this.columnDefs.push({ visible: false, searchable: false, targets: [ Object.keys(this.columnDictionary).indexOf(column) ] })
+            // }
 
         } else {
             this.columnDefs = undefined
