@@ -33,6 +33,9 @@
 
 import getDataWrapper from './dataWrapper.js'
 
+// Workaround for Datatables selection bug on Safari
+const tableTruncationLength = 5e4
+
 const columns = [
     'Biosample',
     'Target',
@@ -69,8 +72,10 @@ class EncodeDataSource {
         const response = await fetch(url)
         const data = await response.text()
         const records = parseTabData(data, this.filter)
-        records.sort(encodeSort)
-        return records
+        const snippet = records.filter((record, index) => index < tableTruncationLength)
+        console.log(`table length ${ snippet.length }`)
+        snippet.sort(encodeSort)
+        return snippet
     }
 
     static supportsGenome(genomeId) {
