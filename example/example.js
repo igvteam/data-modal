@@ -28,7 +28,8 @@
 
 import ModalTable from '../js/modalTable.js'
 import EncodeDataSource from '../js/encodeDataSource.js'
-
+import EncodeTrackDatasource from "../js/encodeTrackDatasource.js";
+import { encodeTrackDatasourceConfigurator } from "../js/encodeTrackDatasourceConfig.js";
 
 // Create a modal for ENCODE with "dm3" as the initial data source
 const encodeModal = new ModalTable({
@@ -37,19 +38,30 @@ const encodeModal = new ModalTable({
     pageLength: 100,
     selectionStyle: 'multi',
     //datasource: new EncodeDataSource("dm3"),
-    selectHandler: selected => console.log(selected)
+    selectHandler: selectionList => {
+        console.log(selectionList)
+    }
 })
 
 
 // Update the modal with a new datasource on genome change.  Setting the datasource will clear the modal,
 // causing the data table to be rebuilt opon opening
 $("#genome-select").change(function (e) {
+
     $("#genome-select option:selected").each(function () {
+
         const genomeId = this.value
-        const datasource = new EncodeDataSource(genomeId)
-        const filter = (record) => record["Format"].toLowerCase() === "bigwig"
-        encodeModal.setDatasource(datasource, filter)
+
+        // const datasource = new EncodeDataSource(genomeId)
+        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
+
+        // const filter = (record) => record["Format"].toLowerCase() === "bigwig"
+        // encodeModal.setDatasource(datasource, filter)
+
+        encodeModal.setDatasource(datasource)
+
     })
+
 })
 
 
