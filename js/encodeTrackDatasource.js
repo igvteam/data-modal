@@ -1,4 +1,4 @@
-import GenericMapDatasource from "./genericDataSource.js";
+import GenericMapDatasource from './genericDataSource.js'
 import getDataWrapper from './dataWrapper.js'
 
 class EncodeTrackDatasource extends GenericMapDatasource {
@@ -27,8 +27,8 @@ class EncodeTrackDatasource extends GenericMapDatasource {
         }
 
         if (response) {
-            const str = await response.text();
-            const records = this.parseTabData(str, this.filter, this.columnDictionary);
+            const str = await response.text()
+            const records = this.parseTabData(str, this.filter, this.columnDictionary)
             records.sort(encodeSort)
             return records
         }
