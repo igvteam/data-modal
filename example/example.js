@@ -27,21 +27,23 @@
  */
 
 import ModalTable from '../js/modalTable.js'
-import EncodeDataSource from '../js/encodeDataSource.js'
-import EncodeTrackDatasource from "../js/encodeTrackDatasource.js";
-import { encodeTrackDatasourceConfigurator } from "../js/encodeTrackDatasourceConfig.js";
+import EncodeTrackDatasource from "../js/encodeTrackDatasource.js"
+import { encodeTrackDatasourceConfigurator } from '../js/encodeTrackDatasourceConfig.js'
+import { encodeTrackDatasourceSignalConfigurator } from "../js/encodeTrackDatasourceSignalConfig.js"
+import { encodeTrackDatasourceOtherConfigurator } from "../js/encodeTrackDatasourceOtherConfig.js"
 
-// Create a modal for ENCODE with "dm3" as the initial data source
-const encodeModal = new ModalTable({
-    id: "encodeModal",
-    title: "ENCODE",
-    pageLength: 100,
-    selectionStyle: 'multi',
-    //datasource: new EncodeDataSource("dm3"),
-    selectHandler: selectionList => {
-        console.log(selectionList)
+const config =
+    {
+        id: "encodeModal",
+        title: "ENCODE",
+        pageLength: 100,
+        selectionStyle: 'multi',
+        selectHandler: selectionList => {
+            console.log(selectionList)
+        }
     }
-})
+
+const encodeModal = new ModalTable(config)
 
 
 // Update the modal with a new datasource on genome change.  Setting the datasource will clear the modal,
@@ -52,8 +54,9 @@ $("#genome-select").change(function (e) {
 
         const genomeId = this.value
 
-        // const datasource = new EncodeDataSource(genomeId)
-        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
+        // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
+        // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceSignalConfigurator(genomeId))
+        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceOtherConfigurator(genomeId))
 
         // const filter = (record) => record["Format"].toLowerCase() === "bigwig"
         // encodeModal.setDatasource(datasource, filter)
