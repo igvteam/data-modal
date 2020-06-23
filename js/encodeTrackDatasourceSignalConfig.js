@@ -14,20 +14,23 @@ const encodeTrackDatasourceSignalConfigurator = genomeId => {
                 'ID',           // hide
                 'Assembly',     // hide
                 'Biosample',
-                'AssayType',
                 'Target',
+                'AssayType',
+                'OutputType',
                 'BioRep',
                 'TechRep',
-                'OutputType',
                 'Format',
-                'Lab',
-                'HREF',         // hide
+                'Experiment',
                 'Accession',
-                'Experiment'
+                'Lab',
+                'HREF'         // hide
             ],
         titles:
             {
-                AssayType: 'Assay Type'
+                AssayType: 'Assay Type',
+                OutputType: 'Output Type',
+                BioRep: 'Bio Rep',
+                TechRep: 'Tech Rep'
             },
         hiddenColumns:
             [
