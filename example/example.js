@@ -55,8 +55,8 @@ $("#genome-select").change(function (e) {
         const genomeId = this.value
 
         // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
-        // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceSignalConfigurator(genomeId))
-        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceOtherConfigurator(genomeId))
+        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceSignalConfigurator(genomeId))
+        // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceOtherConfigurator(genomeId))
 
         // const filter = (record) => record["Format"].toLowerCase() === "bigwig"
         // encodeModal.setDatasource(datasource, filter)
