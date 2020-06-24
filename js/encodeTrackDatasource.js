@@ -57,10 +57,9 @@ class EncodeTrackDatasource extends GenericMapDatasource {
             }
 
             // additions and edits
-            // record[ 'ExperimentID' ] = record[ 'Experiment' ].substr(13).replace("/", "")
-            record[ 'Experiment' ] = record[ 'Experiment' ].substr(13).replace("/", "")
+            record[ 'Experiment' ] = record[ 'ID' ].substr(13).replace("/", "")
             record['HREF'] = `${ this.dataSetPathPrefix }${ record['HREF'] }`
-            // record[ 'name' ] = constructName(record)
+            record[ 'name' ] = constructName(record)
 
             if (undefined === filter || filter(record)) {
                 records.push(record);
