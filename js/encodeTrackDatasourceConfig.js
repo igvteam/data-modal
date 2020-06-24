@@ -13,16 +13,16 @@ const encodeTrackDatasourceConfigurator = genomeId => {
                 'ID',           // hide
                 'Assembly',     // hide
                 'Biosample',
-                'Target',
                 'AssayType',
-                'OutputType',
+                'Target',
                 'BioRep',
                 'TechRep',
+                'OutputType',
                 'Format',
-                'Experiment',
-                'Accession',
                 'Lab',
-                'HREF'         // hide
+                'HREF',         // hide
+                'Accession',
+                'Experiment'
             ],
         titles:
             {
