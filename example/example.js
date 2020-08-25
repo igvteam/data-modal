@@ -32,10 +32,10 @@ import { encodeTrackDatasourceConfigurator } from '../js/encodeTrackDatasourceCo
 import { encodeTrackDatasourceSignalConfigurator } from "../js/encodeTrackDatasourceSignalConfig.js"
 import { encodeTrackDatasourceOtherConfigurator } from "../js/encodeTrackDatasourceOtherConfig.js"
 
-const config =
+const encodeModalConfig =
     {
         id: "encodeModal",
-        title: "ENCODE",
+        title: "ENCODE Modal",
         pageLength: 100,
         selectionStyle: 'multi',
         selectHandler: selectionList => {
@@ -43,7 +43,7 @@ const config =
         }
     }
 
-const encodeModal = new ModalTable(config)
+const encodeModal = new ModalTable(encodeModalConfig)
 
 
 // Update the modal with a new datasource on genome change.  Setting the datasource will clear the modal,
@@ -75,19 +75,19 @@ class TestDataSource {
 
     constructor() {
 
-        this.columnDefs =
-            [
-                {
-                    targets: [ 1 ],
-                    visible: false,
-                    // searchable: false
-                },
-                {
-                    targets: [ 2 ],
-                    visible: false,
-                    // searchable: false
-                }
-            ];
+        // this.columnDefs =
+        //     [
+        //         {
+        //             targets: [ 1 ],
+        //             visible: false,
+        //             // searchable: false
+        //         },
+        //         {
+        //             targets: [ 2 ],
+        //             visible: false,
+        //             // searchable: false
+        //         }
+        //     ];
 
     }
 
@@ -97,23 +97,42 @@ class TestDataSource {
 
     async tableData() {
         return [
-            {"A": "A 1", "B": "B 1", "C": "C 1"},
-            {"A": "A 2", "B": "B 2", "C": "C 3"},
-            {"A": "A 7", "B": "B 5", "C": "C 9"},
-            {"A": "A 11", "B": "B 3", "C": "C 15"},
+            {
+                "A": "A 1",
+                "B": "B 1",
+                "C": "C 1"
+            },
+            {
+                "A": "A 2",
+                "B": "B 2",
+                "C": "C 3"
+            },
+            {
+                "A": "A 7",
+                "B": "B 5",
+                "C": "C 9"
+            },
+            {
+                "A": "A 11",
+                "B": "B 3",
+                "C": "C 15"
+            },
         ]
     }
 
 }
 
-
-
 // Create another modal using the test datasource
 
-const testSourceModal = new ModalTable({
-    id: "simpleModal",
-    title: "TEST",
-    datasource: new TestDataSource(),
-    selectHandler: selected => console.log(selected)
-})
+const simpleModalConfig =
+    {
+        id: "simpleModal",
+        title: "Simple Modal",
+        datasource: new TestDataSource(),
+        selectHandler: selected => {
+            console.log(selected)
+        }
+    }
+
+const testSourceModal = new ModalTable(simpleModalConfig)
 
