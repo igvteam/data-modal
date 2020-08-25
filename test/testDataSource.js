@@ -1,15 +1,16 @@
 //const {assert} = require('chai')
 
-import EncodeDataSource from '../js/encode.js'
+import EncodeTrackDatasource from "../js/encodeTrackDatasource.js"
+import { encodeTrackDatasourceConfigurator } from '../js/encodeTrackDatasourceConfig.js'
 
 suite('Data source', function () {
 
     test('test encode', async function () {
 
-        this.timeout(600000);
+        this.timeout(600000)
 
-
-        const encodeDatasource = new EncodeDataSource("hg19");
+        const genomeId = 'hg19'
+        const encodeDatasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
 
         const data = await encodeDatasource.tableData()
 
