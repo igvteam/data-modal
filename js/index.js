@@ -4,5 +4,15 @@ import ModalTable from "./modalTable.js";
 import { encodeTrackDatasourceConfigurator } from "./encodeTrackDatasourceConfig.js";
 import { encodeContactMapDatasourceConfigurator } from "./encodeContactMapDatasourceConfig.js";
 import { aidenLabContactMapDatasourceConfigurator } from "./aidenLabContactMapDatasourceConfig.js";
+import { encodeTrackDatasourceOtherConfigurator } from "./encodeTrackDatasourceOtherConfig.js";
+import { encodeTrackDatasourceSignalConfigurator } from "./encodeTrackDatasourceSignalConfig.js";
 
-export { aidenLabContactMapDatasourceConfigurator, encodeContactMapDatasourceConfigurator, encodeTrackDatasourceConfigurator, GenericMapDatasource, EncodeTrackDatasource, ModalTable };
+export {
+    encodeTrackDatasourceOtherConfigurator,
+    encodeTrackDatasourceSignalConfigurator,
+    aidenLabContactMapDatasourceConfigurator,
+    encodeContactMapDatasourceConfigurator,
+    encodeTrackDatasourceConfigurator,
+    GenericMapDatasource,
+    EncodeTrackDatasource,
+    ModalTable };
