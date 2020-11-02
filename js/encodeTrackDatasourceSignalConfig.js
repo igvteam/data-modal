@@ -1,3 +1,4 @@
+import {colorForTarget} from "./encodeColors"
 
 const encodeTrackDatasourceSignalConfigurator = genomeId => {
 
@@ -40,8 +41,8 @@ const encodeTrackDatasourceSignalConfigurator = genomeId => {
             ],
         parser: undefined,
         selectionHandler: selectionList => {
-            return selectionList.map(({ name, HREF }) => {
-                return { name, url: HREF }
+            return selectionList.map(({ name, HREF, Target }) => {
+                return { name, url: HREF, color: colorForTarget(Target) }
             })
         }
 
