@@ -1,4 +1,4 @@
-import {colorForTarget} from "./encodeColors.js";
+import {colorForTarget} from "./encodeColors.js"
 
 const encodeTrackDatasourceOtherConfigurator = genomeId => {
 
