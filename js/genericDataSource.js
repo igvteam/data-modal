@@ -2,25 +2,14 @@ class GenericMapDatasource {
 
     constructor(config) {
 
-        this.isJSON = config.isJSON || false;
+        this.isJSON = config.isJSON || false
 
-        if (config.genomeId) {
-            this.genomeId = config.genomeId;
-        }
+        if (config.genomeId) this.genomeId = config.genomeId
+        if (config.dataSetPathPrefix) this.dataSetPathPrefix = config.dataSetPathPrefix
+        if (config.urlPrefix) this.urlPrefix = config.urlPrefix
+        if (config.dataSetPath) this.path = config.dataSetPath
 
-        if (config.dataSetPathPrefix) {
-            this.dataSetPathPrefix = config.dataSetPathPrefix;
-        }
-
-        if (config.urlPrefix) {
-            this.urlPrefix = config.urlPrefix;
-        }
-
-        if (config.dataSetPath) {
-            this.path = config.dataSetPath;
-        }
-
-        this.addIndexColumn = config.addIndexColumn || false;
+        this.addIndexColumn = config.addIndexColumn || false
 
         this.columnDictionary = {};
 
@@ -30,8 +19,8 @@ class GenericMapDatasource {
 
         if (config.hiddenColumns || config.titles) {
 
-            this.columnDefs = [];
-            const keys = Object.keys(this.columnDictionary);
+            this.columnDefs = []
+            const keys = Object.keys(this.columnDictionary)
 
             if (config.hiddenColumns) {
                 for (let column of config.hiddenColumns) {
@@ -49,41 +38,43 @@ class GenericMapDatasource {
             this.columnDefs = undefined
         }
 
-        if (config.parser) {
-            this.parser = config.parser;
-        }
-
-        if (config.selectionHandler) {
-            this.selectionHandler = config.selectionHandler;
-        }
-
+        if (config.parser) this.parser = config.parser
+        if (config.trackLoader) this.selectionHandler = config.trackLoader
+        if (config.tracks) this.tracks = config.tracks
     }
 
     async tableColumns() {
-        return Object.keys(this.columnDictionary);
+        return Object.values(this.columnDictionary);
     }
 
     async tableData() {
 
-        let response = undefined;
+        if (this.tracks) {
+            return this.tracks
+        } else {
 
-        try {
-            response = await fetch(this.path);
-        } catch (e) {
-            console.error(e)
-            return undefined;
-        }
+            let response = undefined;
 
-        if (response) {
-
-            if (true === this.isJSON) {
-                const obj = await response.json();
-                return this.parser(obj, this.columnDictionary, this.addIndexColumn);
-            } else {
-                const str = await response.text();
-                return this.parser(str, this.columnDictionary, this.addIndexColumn);
+            try {
+                response = await fetch(this.path);
+            } catch (e) {
+                console.error(e)
+                return undefined;
             }
+
+            if (response) {
+
+                if (true === this.isJSON) {
+                    const obj = await response.json();
+                    return this.parser(obj, this.columnDictionary, this.addIndexColumn);
+                } else {
+                    const str = await response.text();
+                    return this.parser(str, this.columnDictionary, this.addIndexColumn);
+                }
+            }
+
         }
+
     }
 
     tableSelectionHandler(selectionList) {

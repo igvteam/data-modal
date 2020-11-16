@@ -27,11 +27,31 @@
  */
 
 import ModalTable from '../js/modalTable.js'
+import GenericMapDatasource from '../js/genericDataSource.js'
 import EncodeTrackDatasource from "../js/encodeTrackDatasource.js"
 import { encodeTrackDatasourceConfigurator } from '../js/encodeTrackDatasourceConfig.js'
-import { encodeTrackDatasourceSignalConfigurator } from "../js/encodeTrackDatasourceSignalConfig.js"
-import { encodeTrackDatasourceOtherConfigurator } from "../js/encodeTrackDatasourceOtherConfig.js"
+import { encodeTrackDatasourceSignalConfigurator } from '../js/encodeTrackDatasourceSignalConfig.js'
+import { encodeTrackDatasourceOtherConfigurator } from '../js/encodeTrackDatasourceOtherConfig.js'
+import {duglaConfigurator} from '../js/duglaCustomConfigurator.js';
 
+
+// Custom Data Source Example
+const customModalConfig =
+    {
+        id: 'customModal',
+        title: 'Custom Modal',
+        pageLength: 100,
+        selectionStyle: 'multi',
+        selectHandler: selectionList => {
+            console.log(selectionList)
+        }
+    }
+
+const customModal = new ModalTable(customModalConfig)
+const customDatasource = new GenericMapDatasource(duglaConfigurator())
+customModal.setDatasource(customDatasource)
+
+// ENCODE Example
 const encodeModalConfig =
     {
         id: "encodeModal",
@@ -54,9 +74,9 @@ $("#genome-select").change(function (e) {
 
         const genomeId = this.value
 
-        // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
+        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
         // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceSignalConfigurator(genomeId))
-        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceOtherConfigurator(genomeId))
+        // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceOtherConfigurator(genomeId))
 
         // const filter = (record) => record["Format"].toLowerCase() === "bigwig"
         // encodeModal.setDatasource(datasource, filter)

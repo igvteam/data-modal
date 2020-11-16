@@ -1,0 +1,78 @@
+{
+
+	"tracks": [
+		{
+			"url": "https://www.dropbox.com/s/ta01pnc9h39bphc/ENCFF421AQV.bigWig?dl=0",
+			"name": "ENCFF421AQV.bigWig",
+			"filename": "ENCFF421AQV.bigWig",
+			"sourceType": "file",
+			"format": "bigwig",
+			"type": "wig",
+			"noSpinner": true,
+			"color": "rgb(150,150,150)",
+			"height": 50,
+			"autoscale": true,
+			"order": 3
+		},
+		{
+			"url": "https://www.dropbox.com/s/memhm9gkstcby0g/Breast.seg.gz?dl=0",
+			"name": "Breast.seg.gz",
+			"filename": "Breast.seg.gz",
+			"sourceType": "file",
+			"format": "seg",
+			"type": "seg",
+			"noSpinner": true,
+			"filterTypes": [
+				"chromosome",
+				"gene"
+			],
+			"order": 3
+		},
+		{
+			"url": "https://www.dropbox.com/s/2n7fxvsp829f1f9/EsophagealAdenocarcinoma.seg.gz?dl=0",
+			"name": "EsophagealAdenocarcinoma.seg.gz",
+			"filename": "EsophagealAdenocarcinoma.seg.gz",
+			"sourceType": "file",
+			"format": "seg",
+			"type": "seg",
+			"noSpinner": true,
+			"filterTypes": [
+				"chromosome",
+				"gene"
+			],
+			"order": 3
+		},
+		{
+			"url": "https://www.googleapis.com/drive/v3/files/1rM76O3OHnM7WhRNDfTQOYVyx86D1hhmD?alt=media&supportsTeamDrives=true",
+			"google_url": "https://www.googleapis.com/drive/v3/files/1rM76O3OHnM7WhRNDfTQOYVyx86D1hhmD?alt=media&supportsTeamDrives=true",
+			"name": "ENCFF001EQU.bigWig",
+			"filename": "ENCFF001EQU.bigWig",
+			"format": "bigwig",
+			"noSpinner": true,
+			"sourceType": "file",
+			"type": "wig",
+			"color": "rgb(150,150,150)",
+			"height": 50,
+			"autoscale": true,
+			"order": 6
+		},
+		{
+			"name": "Refseq Genes",
+			"format": "refgene",
+			"url": "https://s3.amazonaws.com/igv.org.genomes/hg19/refGene.sorted.txt.gz",
+			"indexURL": "https://s3.amazonaws.com/igv.org.genomes/hg19/refGene.sorted.txt.gz.tbi",
+			"visibilityWindow": -1,
+			"removable": false,
+			"order": 1000000,
+			"noSpinner": true,
+			"filename": "refGene.sorted.txt.gz",
+			"sourceType": "file",
+			"type": "annotation",
+			"maxRows": 500,
+			"filterTypes": [
+				"chromosome",
+				"gene"
+			]
+		}
+	]
+}

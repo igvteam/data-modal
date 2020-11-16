@@ -1,0 +1,21 @@
+{
+
+	"tracks": [
+		{
+			"url": "https://www.dropbox.com/s/ta01pnc9h39bphc/ENCFF421AQV.bigWig?dl=0",
+			"name": "ENCFF421AQV.bigWig"
+		},
+		{
+			"url": "https://www.dropbox.com/s/memhm9gkstcby0g/Breast.seg.gz?dl=0",
+			"name": "Breast.seg.gz"
+		},
+		{
+			"url": "https://www.dropbox.com/s/2n7fxvsp829f1f9/EsophagealAdenocarcinoma.seg.gz?dl=0",
+			"name": "EsophagealAdenocarcinoma.seg.gz"
+		},
+		{
+			"url": "https://www.googleapis.com/drive/v3/files/1rM76O3OHnM7WhRNDfTQOYVyx86D1hhmD?alt=media&supportsTeamDrives=true",
+			"name": "ENCFF001EQU.bigWig"
+		}
+	]
+}
