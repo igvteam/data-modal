@@ -23,8 +23,6 @@ const exampleCustomConfigurator = () => {
                 name: 'say my name'
             },
 
-        parser: undefined,
-
         trackLoader: trackList => trackList,
 
         tracks:
