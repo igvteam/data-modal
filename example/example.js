@@ -32,7 +32,7 @@ import EncodeTrackDatasource from "../js/encodeTrackDatasource.js"
 import { encodeTrackDatasourceConfigurator } from '../js/encodeTrackDatasourceConfig.js'
 import { encodeTrackDatasourceSignalConfigurator } from '../js/encodeTrackDatasourceSignalConfig.js'
 import { encodeTrackDatasourceOtherConfigurator } from '../js/encodeTrackDatasourceOtherConfig.js'
-import {duglaConfigurator} from '../js/duglaCustomConfigurator.js';
+import {exampleCustomConfigurator} from '../js/customConfigurator.js';
 
 
 // Custom Data Source Example
@@ -48,7 +48,7 @@ const customModalConfig =
     }
 
 const customModal = new ModalTable(customModalConfig)
-const customDatasource = new GenericMapDatasource(duglaConfigurator())
+const customDatasource = new GenericMapDatasource(exampleCustomConfigurator())
 customModal.setDatasource(customDatasource)
 
 // ENCODE Example
@@ -86,73 +86,3 @@ $("#genome-select").change(function (e) {
     })
 
 })
-
-
-
-// Trivial example datasource
-
-class TestDataSource {
-
-    constructor() {
-
-        // this.columnDefs =
-        //     [
-        //         {
-        //             targets: [ 1 ],
-        //             visible: false,
-        //             // searchable: false
-        //         },
-        //         {
-        //             targets: [ 2 ],
-        //             visible: false,
-        //             // searchable: false
-        //         }
-        //     ];
-
-    }
-
-    async tableColumns() {
-        return ["A", "B", "C"]
-    }
-
-    async tableData() {
-        return [
-            {
-                "A": "A 1",
-                "B": "B 1",
-                "C": "C 1"
-            },
-            {
-                "A": "A 2",
-                "B": "B 2",
-                "C": "C 3"
-            },
-            {
-                "A": "A 7",
-                "B": "B 5",
-                "C": "C 9"
-            },
-            {
-                "A": "A 11",
-                "B": "B 3",
-                "C": "C 15"
-            },
-        ]
-    }
-
-}
-
-// Create another modal using the test datasource
-
-const simpleModalConfig =
-    {
-        id: "simpleModal",
-        title: "Simple Modal",
-        datasource: new TestDataSource(),
-        selectHandler: selected => {
-            console.log(selected)
-        }
-    }
-
-const testSourceModal = new ModalTable(simpleModalConfig)
-

@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
     <!-- DataTables CSS -->
-<!--    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/sl-1.3.1/datatables.min.css"/>
 
     <!-- Bootstrap 4 and Dependancies -->
@@ -22,7 +21,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <!-- Datatables JS -->
-<!--    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/sl-1.3.1/datatables.min.js"></script>
 
     <!-- Site JS-->
@@ -34,38 +32,39 @@
 <body>
 
 <br/><br/>
+<hr/>
+<br/><br/>
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#customModal">
     CUSTOM
 </button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#simpleModal">
-    SIMPLE
-</button>
 
 <br/><br/>
+<hr/>
 <br/><br/>
-<br/><br/>
-<br/><br/>
-
-<label for="genome-select">Select an ENCODE genome:</label>
-<select id="genome-select">
-    <option value="none">Select genome</option>
-    <option value="dm3">dm3</option>
-    <option value="hg19">hg19</option>
-    <option value="hg38">hg38</option>
-
-</select>
 
 <p>
-<hr/>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#encodeModal">
-    ENCODE
-</button>
+    <label for="genome-select">Select an ENCODE genome:</label>
+    <select id="genome-select">
+        <option value="none">Select genome</option>
+        <option value="dm3">dm3</option>
+        <option value="hg19">hg19</option>
+        <option value="hg38">hg38</option>
 
+    </select>
 
 </p>
 
-</body>
+<p>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#encodeModal">
+        ENCODE
+    </button>
 
+</p>
+<br/><br/>
+<hr/>
+<br/><br/>
+
+</body>
 
 </html>

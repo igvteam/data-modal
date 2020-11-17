@@ -1,6 +1,4 @@
-import {colorForTarget} from "./encodeColors.js"
-
-const duglaConfigurator = () => {
+const exampleCustomConfigurator = () => {
 
     return {
 
@@ -21,8 +19,8 @@ const duglaConfigurator = () => {
 
         titles:
             {
-                url: 'u r l',
-                name: 'n a m e'
+                url: 'the url',
+                name: 'say my name'
             },
 
         parser: undefined,
@@ -49,4 +47,4 @@ const duglaConfigurator = () => {
 
 }
 
-export { duglaConfigurator }
+export { exampleCustomConfigurator }
