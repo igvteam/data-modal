@@ -13,9 +13,7 @@ class GenericMapDatasource {
 
         this.columnDictionary = {};
 
-        for (let column of config.columns) {
-            this.columnDictionary[ column ] = column;
-        }
+        for (let column of config.columns) this.columnDictionary[ column ] = column
 
         if (config.hiddenColumns || config.titles) {
 
@@ -30,6 +28,7 @@ class GenericMapDatasource {
 
             if (config.titles) {
                 for (let [ column, title ] of Object.entries(config.titles)) {
+                    this.columnDictionary[ column ] = title
                     this.columnDefs.push({ title, targets: keys.indexOf(column) })
                 }
             }
@@ -43,8 +42,8 @@ class GenericMapDatasource {
         if (config.tracks) this.tracks = config.tracks
     }
 
-    async tableColumns() {
-        return Object.values(this.columnDictionary);
+    tableColumnDictionary() {
+        return this.columnDictionary
     }
 
     async tableData() {

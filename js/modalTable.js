@@ -97,12 +97,16 @@ class ModalTable {
                 this.startSpinner()
 
                 const tableData = await this.datasource.tableData()
-                const tableColumns = await this.datasource.tableColumns()
+
+                const tableColumnDictionary = this.datasource.tableColumnDictionary()
+
+                const columns = [];
+                for (let [ column, title ] of Object.entries(tableColumnDictionary)) columns.push({ title, data: column })
 
                 const config =
                     {
                         data: tableData,
-                        columns: tableColumns.map(c => ({ title: c, data: c })),
+                        columns,
                         pageLength: this.pageLength,
                         select: this.select,
                         autoWidth: false,

@@ -21,9 +21,8 @@ const duglaConfigurator = () => {
 
         titles:
             {
-                'ENCFF421AQV.bigWig': 'ENCF F421 AQV',
-                'EsophagealAdenocarcinoma.seg.gz': 'Esophageal Adenocarcinoma',
-                'ENCFF001EQU.bigWig': 'E N C F F 0 0 1 E Q U'
+                url: 'u r l',
+                name: 'n a m e'
             },
 
         parser: undefined,
