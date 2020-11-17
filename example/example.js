@@ -32,7 +32,7 @@ import EncodeTrackDatasource from "../js/encodeTrackDatasource.js"
 import { encodeTrackDatasourceConfigurator } from '../js/encodeTrackDatasourceConfig.js'
 import { encodeTrackDatasourceSignalConfigurator } from '../js/encodeTrackDatasourceSignalConfig.js'
 import { encodeTrackDatasourceOtherConfigurator } from '../js/encodeTrackDatasourceOtherConfig.js'
-import {exampleCustomConfigurator} from '../js/customConfigurator.js';
+import {exampleCustomConfigurator} from '../js/exampleCustomConfig.js';
 
 
 // Custom Data Source Example

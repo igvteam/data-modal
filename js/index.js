@@ -4,6 +4,7 @@ import ModalTable from "./modalTable.js";
 import { encodeTrackDatasourceConfigurator } from "./encodeTrackDatasourceConfig.js";
 import { encodeTrackDatasourceOtherConfigurator } from "./encodeTrackDatasourceOtherConfig.js";
 import { encodeTrackDatasourceSignalConfigurator } from "./encodeTrackDatasourceSignalConfig.js";
+import { exampleCustomConfigurator } from "./exampleCustomConfig.js";
 
 export {
     encodeTrackDatasourceOtherConfigurator,
@@ -11,4 +12,5 @@ export {
     encodeTrackDatasourceConfigurator,
     GenericMapDatasource,
     EncodeTrackDatasource,
-    ModalTable };
+    ModalTable,
+    exampleCustomConfigurator};
