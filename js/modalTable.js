@@ -8,7 +8,7 @@ class ModalTable {
         this.pageLength = args.pageLength || 10
 
         if (args.selectionStyle) {
-            this.select = { style: args.selectionStyle }
+            this.select = {style: args.selectionStyle}
         } else {
             this.select = true;
         }
@@ -86,7 +86,7 @@ class ModalTable {
         this.$table = undefined
     }
 
-    async buildTable () {
+    async buildTable() {
 
         if (!this.$table && this.datasource) {
 
@@ -102,7 +102,7 @@ class ModalTable {
                 const config =
                     {
                         data: tableData,
-                        columns: tableColumns.map(c => ({ title: c, data: c })),
+                        columns: tableColumns.map(c => ({title: c, data: c})),
                         pageLength: this.pageLength,
                         select: this.select,
                         autoWidth: false,
@@ -148,19 +148,23 @@ class ModalTable {
                 const index = api.row(this).index()
                 result.push(tableData[index])
             })
-            return this.datasource.tableSelectionHandler(result)
+            // Check for legacy "tableSelectionHandler" function, supported here for backward compatibility
+            return (typeof this.datasource.tableSelectionHandler === 'function') ?
+                this.datasource.tableSelectionHandler(result) :
+                result;
+
         } else {
             return undefined;
         }
 
     }
 
-    startSpinner () {
+    startSpinner() {
         if (this.$spinner)
             this.$spinner.show()
     }
 
-    stopSpinner () {
+    stopSpinner() {
         if (this.$spinner)
             this.$spinner.hide()
     }
