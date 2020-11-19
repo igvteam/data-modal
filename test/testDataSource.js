@@ -1,6 +1,6 @@
 const {assert} = require('chai')
 import "./util/mockObjects.js";
-import EncodeTrackDatasource from "../js/encodeTrackDatasource.js"
+import GenericDataSource from "../js/encodeTrackDatasource.js"
 import { encodeTrackDatasourceConfigurator } from '../js/encodeTrackDatasourceConfig.js'
 import { colorForTarget} from "../js/encodeColors.js"
 
@@ -11,7 +11,7 @@ suite('Data source', function () {
         this.timeout(600000)
 
         const genomeId = 'hg19'
-        const encodeDatasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
+        const encodeDatasource = new GenericDataSource(encodeTrackDatasourceConfigurator(genomeId))
         const data = await encodeDatasource.tableData()
 
         // Was data loaded?

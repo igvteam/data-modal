@@ -90,7 +90,7 @@ const simpleModalConfig =
         id: "simpleModal",
         title: "Simple Modal",
         datasource: new TestDataSource(),
-        selectHandler: selected => {
+        okHandler: selected => {
             console.log(selected)
         }
     }

@@ -36,7 +36,7 @@ new ModalTable({
         id: "simpleModal",
         title: "Simple Modal",
         datasource: new TestDataSource(),
-        selectHandler: selected => {
+        okHandler: selected => {
             console.log(selected)
         }
     })
@@ -46,7 +46,7 @@ new ModalTable({
 
 * ```datasource```
 
-* ```selectHandler```
+* ```okHandler```
 
 * ```pageLength```
 
@@ -60,11 +60,42 @@ new ModalTable({
 
 #### datasource
 
-A ModalTable fetches data to build the table from a datasource.  
+A ModalTable fetches data to build the table from a datasource.  Datasource object properties include 
 
-* ``` async tableColumns() ```  Return the column headings as an array of strings
+* ``` async tableColumns() ```  Required.  Return the column headings as an array of strings
 
-* ``` async tableData()  ```  Return the table data as an array of objects.  Each object has properties corresponding to the table columns
+* ``` async tableData()  ```  Required. Return the table data as an array of objects.  Each object has properties corresponding to the table columns
 
 * ``` columnDefs```   Optional
+
+#### GenericDataSource
+
+A datasource can be instantiated from class GenericDataSource by supplying a configuration object with the following properties
+
+* columns
+
+* hiddenColumns 
+
+* titles
+
+* rowHandler
+
+* data
+
+If data is supplied, properties that follow are ignored
+
+* url
+
+* isJSON
+
+* parser
+
+* filter
+
+* sort
+
+
+
+
+
 

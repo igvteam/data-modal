@@ -3,7 +3,7 @@ class ModalTable {
     constructor(args) {
 
         this.datasource = args.datasource
-        this.selectHandler = args.selectHandler
+        this.okHandler = args.okHandler
 
         this.pageLength = args.pageLength || 10
 
@@ -70,8 +70,8 @@ class ModalTable {
 
         $okButton.on('click', (e) => {
             const selected = this.getSelectedTableRowsData.call(this, this.$dataTable.$('tr.selected'))
-            if (selected && this.selectHandler) {
-                this.selectHandler(selected)
+            if (selected && this.okHandler) {
+                this.okHandler(selected)
             }
         })
     }
@@ -148,15 +148,14 @@ class ModalTable {
                 const index = api.row(this).index()
                 result.push(tableData[index])
             })
-            // Check for legacy "tableSelectionHandler" function, supported here for backward compatibility
-            return (typeof this.datasource.tableSelectionHandler === 'function') ?
-                this.datasource.tableSelectionHandler(result) :
-                result;
-
+            if(typeof this.datasource.rowHandler === 'function')  {
+                return result.map(selectedRow => this.datasource.rowHandler(selectedRow));
+            } else {
+                return result;
+            }
         } else {
             return undefined;
         }
-
     }
 
     startSpinner() {
