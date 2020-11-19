@@ -66,7 +66,7 @@ A ModalTable fetches data to build the table from a datasource.
 
 * ``` async tableData()  ```  Return the table data as an array of objects.  Each object has properties corresponding to the table columns
 
-* ``` tableSelectionHandler(result) ```
+* ``` tableSelectionHandler(result) ```  Optional, receives an array of objects for selected rows and returns an array of transformed objects for passing the the selectHandler. 
 
 * ``` columnDefs```   Optional
 
