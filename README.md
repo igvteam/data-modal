@@ -42,6 +42,21 @@ new ModalTable({
     })
 ```
 
+### ModalTable constructor
+
+* ```datasource```
+
+* ```selectHandler```
+
+* ```pageLength```
+
+* ```selectionStyle```
+
+* ```id```
+
+* ```title```
+
+* ```parent``` 
 
 #### datasource
 
@@ -50,4 +65,8 @@ A ModalTable fetches data to build the table from a datasource.
 * ``` async tableColumns() ```  Return the column headings as an array of strings
 
 * ``` async tableData()  ```  Return the table data as an array of objects.  Each object has properties corresponding to the table columns
+
+* ``` tableSelectionHandler(result) ```
+
+* ``` columnDefs```   Optional
 
