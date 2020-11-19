@@ -1,10 +1,11 @@
-import {colorForTarget} from "./encodeColors"
+import {colorForTarget} from "./encodeColors.js";
 
-const encodeTrackDatasourceConfigurator = genomeId => {
+function encodeTrackDatasourceConfigurator(genomeId, type) {
 
     return {
         isJSON: false,
         genomeId,
+        suffix: ('other' === type ? '.other.txt' : ('signals' === type ? '.signals.txt' : undefined)),
         dataSetPathPrefix: 'https://www.encodeproject.org',
         urlPrefix: 'https://s3.amazonaws.com/igv.org.app/encode/',
         dataSetPath: undefined,

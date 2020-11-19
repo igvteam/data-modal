@@ -29,8 +29,6 @@
 import ModalTable from '../js/modalTable.js'
 import EncodeTrackDatasource from "../js/encodeTrackDatasource.js"
 import { encodeTrackDatasourceConfigurator } from '../js/encodeTrackDatasourceConfig.js'
-import { encodeTrackDatasourceSignalConfigurator } from "../js/encodeTrackDatasourceSignalConfig.js"
-import { encodeTrackDatasourceOtherConfigurator } from "../js/encodeTrackDatasourceOtherConfig.js"
 
 const encodeModalConfig =
     {
@@ -54,7 +52,7 @@ $("#genome-select").change(function (e) {
 
         const genomeId = this.value
 
-        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId))
+        const datasource = new EncodeTrackDatasource(encodeTrackDatasourceConfigurator(genomeId, 'signals'))
         // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceSignalConfigurator(genomeId))
         // const datasource = new EncodeTrackDatasource(encodeTrackDatasourceOtherConfigurator(genomeId))
 

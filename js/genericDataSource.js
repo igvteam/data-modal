@@ -4,22 +4,6 @@ class GenericMapDatasource {
 
         this.isJSON = config.isJSON || false;
 
-        if (config.genomeId) {
-            this.genomeId = config.genomeId;
-        }
-
-        if (config.dataSetPathPrefix) {
-            this.dataSetPathPrefix = config.dataSetPathPrefix;
-        }
-
-        if (config.urlPrefix) {
-            this.urlPrefix = config.urlPrefix;
-        }
-
-        if (config.dataSetPath) {
-            this.path = config.dataSetPath;
-        }
-
         this.addIndexColumn = config.addIndexColumn || false;
 
         this.columnDictionary = {};
