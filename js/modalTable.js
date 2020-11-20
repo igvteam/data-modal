@@ -98,11 +98,17 @@ class ModalTable {
 
                 const tableData = await this.datasource.tableData()
                 const tableColumns = await this.datasource.tableColumns()
-
+                const columnDefs = this.datasource.columnDefs;
                 const config =
                     {
                         data: tableData,
-                        columns: tableColumns.map(c => ({title: c, data: c})),
+                        columns: tableColumns.map(c => {
+                            if (columnDefs && columnDefs[c]) {
+                                return Object.assign({}, columnDefs[c], {data: c});
+                            } else {
+                                return {title: c, data: c}
+                            }
+                        }),
                         pageLength: this.pageLength,
                         select: this.select,
                         autoWidth: false,
@@ -111,9 +117,6 @@ class ModalTable {
                         scrollY: '400px',
                     };
 
-                if (this.datasource.columnDefs) {
-                    config.columnDefs = this.datasource.columnDefs;
-                }
 
                 // API object
                 this.api = this.$table.DataTable(config);
@@ -148,7 +151,7 @@ class ModalTable {
                 const index = api.row(this).index()
                 result.push(tableData[index])
             })
-            if(typeof this.datasource.rowHandler === 'function')  {
+            if (typeof this.datasource.rowHandler === 'function') {
                 return result.map(selectedRow => this.datasource.rowHandler(selectedRow));
             } else {
                 return result;

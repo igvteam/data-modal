@@ -4,67 +4,29 @@ class GenericDataSource {
 
     constructor(config) {
 
-        if (config.rowHandler) {
-            this.rowHandler = config.rowHandler;
-        }
+        this.columns = config.columns;   // Required for now, could default to all columns
+        this.columnDefs = config.columnDefs       // optional
+        this.rowHandler = config.rowHandler;      // optional
 
         if (config.data) {
             this.data = config.data;  // Explcitly set table rows as array of json objects
         } else {
-            this.url = config.url;     // URL to data source
-            this.isJSON = config.isJSON || false;
-            if (config.parser) {
-                this.parser = parser;
-            }
-            if (config.filter) {
-                this.filter = config.filter
-            }
-            if (config.sort) {
-                this.sort = config.sort;
-            }
-        }
-
-        this.configureColumns(config)
-
-    }
-
-    configureColumns(config) {
-
-        this.columnDictionary = {};
-
-        for (let column of config.columns) {
-            this.columnDictionary[column] = column;
-        }
-
-        if (config.hiddenColumns || config.titles) {
-
-            this.columnDefs = [];
-            const keys = Object.keys(this.columnDictionary);
-
-            if (config.hiddenColumns) {
-                for (let column of config.hiddenColumns) {
-                    this.columnDefs.push({visible: false, searchable: false, targets: keys.indexOf(column)})
-                }
-            }
-
-            if (config.titles) {
-                for (let [column, title] of Object.entries(config.titles)) {
-                    this.columnDefs.push({title, targets: keys.indexOf(column)})
-                }
-            }
-
-        } else {
-            this.columnDefs = undefined
+            this.url = config.url;     // URL to data source -- required
+            this.isJSON = config.isJSON || false;   // optional, defaults to false (tab delimited)
+            this.parser = config.parser;                   // optional
+            this.filter = config.filter             // optional
+            this.sort = config.sort;                // optional
         }
     }
 
     async tableColumns() {
-        return Object.keys(this.columnDictionary);
+        return this.columns;
     }
 
     async tableData() {
 
         if (!this.data) {
+
             let response = undefined;
             try {
                 const url = this.url
