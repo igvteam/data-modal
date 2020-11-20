@@ -44,19 +44,19 @@ new ModalTable({
 
 ### ModalTable constructor
 
-* ```datasource```
+* ```id``` Identifier.  
 
-* ```okHandler```
+* ```datasource``` A datasource object, see below.
 
-* ```pageLength```
+* ```okHandler``` Called with selected rows on dismissal of the dialog with "OK".  
 
-* ```selectionStyle```
+* ```pageLength``` Number of rows to display per page
 
-* ```id```
+* ```selectionStyle```  either `single` or `multi`
 
-* ```title```
+* ```title```  Dialog title
 
-* ```parent``` 
+* ```parent```  Parent element of the modal.  If not supplied the parent is ```body```.
 
 #### datasource
 
@@ -66,33 +66,29 @@ A ModalTable fetches data to build the table from a datasource.  Datasource obje
 
 * ``` async tableData()  ```  Required. Return the table data as an array of objects.  Each object has properties corresponding to the table columns
 
-* ``` columnDefs```   Optional
+* ``` columnDefs```   Optional.  See [datatable reference](https://datatables.net/reference/option/columns) for details.
 
 #### GenericDataSource
 
 A datasource can be instantiated from class GenericDataSource by supplying a configuration object with the following properties
 
-* columns
+* ```columns```  Required. Array of strings representing a key for each column.  Data for cells are fetched from row json with these keys. In the absence of columnDefs (below) the keys will be used for column labels.
 
-* hiddenColumns 
+* ```columnDefs``` Optional.  Key-value object store for column definitions.  Key is the column identifier, value is a json `columnDef` object as documented [here](https://datatables.net/reference/option/columns).
 
-* titles
+* ```rowHandler``` Function which takes a row json object and returns a transformed json object prior to passing selections to ```okHandler```.
 
-* rowHandler
+Data for the table can be supplied explicitly, as an array of JSON (or JSON-like) objects, or read from a url.   One of either ```data``` or ```url``` must be supplied.
 
-* data
+* ```data```  An array of simple objects or JSON containing data for the table, one object for each row.  Property names should match the ```columns``` keys above.
 
-If data is supplied, properties that follow are ignored
+* ```url```  URL to file containing table data.  File can be either tab delimited, or JSON, with an array of objects as descibed above.  If the ```data``` property is used the ```URL``` property, and all properties below, are ignored.
 
-* url
+* ```isJSON``` Flag indicating the format of the contents of ```url```, either JSON (if true) or tab delimited (if false or not set).
 
-* isJSON
+* ```parser```  Optional function to parse the contents of ```URL```.   Input is url content, output is array of JSON objects
 
-* parser
-
-* filter
-
-* sort
+* ```sort```  Optional function to sort rows before table initialization.  Function is actually a comparator for sort, taking a pair of row JSON objects.
 
 
 
