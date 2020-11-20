@@ -27,56 +27,48 @@
  */
 
 import ModalTable from '../js/modalTable.js'
+import GenericDataSource from "../js/genericDataSource.js";
 
-class TestDataSource {
+// Read table data from a tab-delimited file  (ENCODE tracks for genome dm3)
 
-    constructor() {
+const dataSourceConfig = {
 
-    }
+    columns:
+        [
+            'name',
+            'type'
+        ],
+    columnDefs:
+        {
+            name: {title: 'Name'},
+            type: {title: 'Track Type'}
+        },
 
-    async tableColumns() {
-        return ["A", "B", "C"]
-    }
+    url: './data/tracks.json',
+    isJSON: true
 
-    async tableData() {
-        return [
-            {
-                "A": "A 1",
-                "B": "B 1",
-                "C": "C 1"
-            },
-            {
-                "A": "A 2",
-                "B": "B 2",
-                "C": "C 3"
-            },
-            {
-                "A": "A 7",
-                "B": "B 5",
-                "C": "C 9"
-            },
-            {
-                "A": "A 11",
-                "B": "B 3",
-                "C": "C 15"
-            },
-        ]
-    }
-
+    //rowHandler: row => {
+    // Nothing to do, pass json on as-is
+    // }
 }
+
+const dataSource = new GenericDataSource(dataSourceConfig);
+
 
 // Create another modal using the test datasource
 
 const simpleModalConfig =
     {
-        id: "custom",
-        title: "Custom Datasource",
-        datasource: new TestDataSource(),
+        id: "jsonFile",
+        title: "JSON file backed table",
+        datasource: dataSource,
         okHandler: selected => {
             console.log(selected)
         }
     }
 
-const customSourceModal = new ModalTable(simpleModalConfig)
+new ModalTable(simpleModalConfig)
+
+
 
 

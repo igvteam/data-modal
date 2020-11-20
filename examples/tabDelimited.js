@@ -27,56 +27,64 @@
  */
 
 import ModalTable from '../js/modalTable.js'
+import GenericDataSource from "../js/genericDataSource.js";
 
-class TestDataSource {
+// Read table data from a tab-delimite file  (ENCODE tracks for genome dm3)
 
-    constructor() {
-
+const dataSourceConfig = {
+    isJSON: false,
+    url: 'data/tabDelimited.txt',
+    columns:
+        [
+            // 'ID',           // hidden
+            //  'Assembly',     // hidden
+            'Biosample',
+            'AssayType',
+            'Target',
+            'BioRep',
+            'TechRep',
+            'OutputType',
+            'Format',
+            'Lab',
+            //   'HREF',         // hidden
+            'Accession',
+            'Experiment'
+        ],
+    columnDefs:
+        {
+            AssayType: {title: 'Assay Type'},
+            OutputType: {title: 'Output Type'},
+            BioRep: {title: 'Bio Rep'},
+            TechRep: {title: 'Tech Rep'}
+        },
+    sort: (a, b) => {
+        const aTarget = a.Target || "";
+        const bTarget = b.Target || ""
+        return aTarget.localeCompare(bTarget);
+    },
+    rowHandler: row => {
+        const name = `${row['Biosample']} - ${row['Target']}`;
+        const url = `https://www.encodeproject.org/${row['HREF']}`;
+        return {name, url}
     }
-
-    async tableColumns() {
-        return ["A", "B", "C"]
-    }
-
-    async tableData() {
-        return [
-            {
-                "A": "A 1",
-                "B": "B 1",
-                "C": "C 1"
-            },
-            {
-                "A": "A 2",
-                "B": "B 2",
-                "C": "C 3"
-            },
-            {
-                "A": "A 7",
-                "B": "B 5",
-                "C": "C 9"
-            },
-            {
-                "A": "A 11",
-                "B": "B 3",
-                "C": "C 15"
-            },
-        ]
-    }
-
 }
+
+const dataSource = new GenericDataSource(dataSourceConfig);
+
 
 // Create another modal using the test datasource
 
 const simpleModalConfig =
     {
-        id: "custom",
-        title: "Custom Datasource",
-        datasource: new TestDataSource(),
+        id: "tabDelimited",
+        datasource: dataSource,
+        title: "Tab delimited file",
         okHandler: selected => {
             console.log(selected)
         }
     }
 
-const customSourceModal = new ModalTable(simpleModalConfig)
+new ModalTable(simpleModalConfig)
+
 
 
