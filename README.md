@@ -29,7 +29,7 @@ A data-modal is typically launched from a button
 </button>
 ```
 
-The data-modal table is backed by in instance of ModalTable,  with an id attribute == the data-target id in the corresponding html.   The html above presumes the existence of a ModalTable object with ```id = customModal```
+The data-modal table is backed by in instance of ModalTable,  with an id attribute == the data-target id in the corresponding html.   The html above presumes the existence of a ModalTable object with ```id = simpleModal```
 
 ```
 new ModalTable({
