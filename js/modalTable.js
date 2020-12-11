@@ -76,6 +76,10 @@ class ModalTable {
         })
     }
 
+    setTitle(title) {
+        this.$modal.find('.modal-title').text(`${ title }`)
+    }
+
     remove() {
         this.$modal.remove()
     }
