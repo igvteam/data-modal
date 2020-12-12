@@ -44,9 +44,10 @@ class GenericDataSource {
                 if (this.parser) {
                     records = this.parser.parse(str);
                 } else if (this.isJSON) {
-                    records = JSON.parse(str);
+                    const json = JSON.parse(str)
+                    records = Object.entries(json)
                     if (typeof this.filter === 'function') {
-                        records = records.filter(this.filter);
+                        records = records.map(([ key, value ]) => this.filter(key, value))
                     }
                 } else {
                     records = this.parseTabData(str, this.filter);
