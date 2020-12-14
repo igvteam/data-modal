@@ -42,23 +42,12 @@ class GenericDataSource {
 
                 let records;
                 if (this.parser) {
-                    records = this.parser.parse(str)
+                    records = this.parser.parse(str);
                 } else if (this.isJSON) {
-
-                    const json = JSON.parse(str)
-
-                    if (Array.isArray(json)) {
-                        records = json
-                        if (this.filter && typeof this.filter === 'function') {
-                            records = records.filter(this.filter)
-                        }
-                    } else {
-                        records = Object.entries(json)
-                        if (this.filter && typeof this.filter === 'function') {
-                            records = records.map(([ key, value ]) => this.filter(key, value))
-                        }
+                    records = JSON.parse(str);
+                    if (typeof this.filter === 'function') {
+                        records = records.filter(this.filter);
                     }
-
                 } else {
                     records = this.parseTabData(str, this.filter);
                 }
@@ -66,6 +55,9 @@ class GenericDataSource {
                 if (typeof this.sort === 'function') {
                     records.sort(this.sort);
                 }
+
+
+
                 this.data = records
             }
         }
