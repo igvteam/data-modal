@@ -55,10 +55,14 @@ class GenericDataSource {
                 if (typeof this.sort === 'function') {
                     records.sort(this.sort);
                 }
+
+
+
                 this.data = records
             }
         }
-        return this.data;
+
+        return this.data
     }
 
     parseTabData(str, filter) {
