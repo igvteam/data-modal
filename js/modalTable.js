@@ -39,6 +39,10 @@ class ModalTable {
                         <div id="${id}-datatable-container">
         
                         </div>
+                        
+                        <!-- description -->
+                        <div>
+                        </div>
                     </div>
         
                     <div class="modal-footer">
@@ -78,6 +82,10 @@ class ModalTable {
 
     setTitle(title) {
         this.$modal.find('.modal-title').text(`${ title }`)
+    }
+
+    setDescription(description) {
+        this.$modal.find('.modal-body').children().last().html(`${ description }`)
     }
 
     remove() {
