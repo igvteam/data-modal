@@ -1,4 +1,5 @@
 import getDataWrapper from './dataWrapper.js'
+import {igvxhr, FileUtils } from "../node_modules/igv-utils/src/index.js";
 
 class GenericDataSource {
 
@@ -25,7 +26,7 @@ class GenericDataSource {
 
     async tableData() {
 
-        if (!this.data) {
+        if (undefined === this.data) {
 
             let response = undefined;
             try {
@@ -60,6 +61,29 @@ class GenericDataSource {
 
                 this.data = records
             }
+        } else if (Array.isArray(this.data)) {
+            return this.data
+        } else if ('csv' === FileUtils.getExtension(this.data)) {
+
+            let str
+            try {
+                str = await igvxhr.loadString(this.data)
+            } catch (e){
+                console.error(e)
+                return undefined;
+            }
+
+            if (str) {
+                const list = str.split('\n')
+                const keys = list.shift().split(',')
+                const records = list.map(line => {
+                    const keyValues = line.split(',').map((value, index) => [ keys[ index ], value ])
+                    const entries = new Map(keyValues)
+                    return Object.fromEntries(entries)
+                })
+                this.data = records
+            }
+
         }
 
         return this.data

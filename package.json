@@ -15,5 +15,7 @@
     "mocha": "^8.2.0",
     "node-fetch": "^2.6.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "igv-utils": "github:igvteam/igv-utils#b01d4e5c"
+  }
 }
