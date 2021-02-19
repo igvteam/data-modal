@@ -57,8 +57,6 @@ class GenericDataSource {
                     records.sort(this.sort);
                 }
 
-
-
                 this.data = records
             }
         } else if (Array.isArray(this.data)) {
@@ -74,14 +72,18 @@ class GenericDataSource {
             }
 
             if (str) {
-                const list = str.split('\n')
-                const keys = list.shift().split(',')
-                const records = list.map(line => {
-                    const keyValues = line.split(',').map((value, index) => [ keys[ index ], value ])
-                    const entries = new Map(keyValues)
-                    return Object.fromEntries(entries)
-                })
-                this.data = records
+                // const list = str.split('\n')
+                // const keys = list.shift().split(',').map(key => key.trim())
+                //
+                // const records = list.map(line => {
+                //     const keyValues = line.split(',').map((value, index) => [ keys[ index ], value.trim() ])
+                //     const entries = new Map(keyValues)
+                //     return Object.fromEntries(entries)
+                // })
+                //
+                // this.data = records
+
+                this.data = parseCSV(str)
             }
 
         }
@@ -123,5 +125,16 @@ class GenericDataSource {
 
 }
 
+function parseCSV(str) {
+
+    const list = str.split('\n')
+    const keys = list.shift().split(',').map(key => key.trim())
+
+    return list.map(line => {
+        const keyValues = line.split(',').map((value, index) => [ keys[ index ], value.trim() ])
+        return Object.fromEntries( new Map(keyValues) )
+    })
+
+}
 
 export default GenericDataSource
