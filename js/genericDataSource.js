@@ -61,7 +61,7 @@ class GenericDataSource {
             }
         } else if (Array.isArray(this.data)) {
             return this.data
-        } else if ('csv' === FileUtils.getExtension(this.data)) {
+        } else if ('csv' === FileUtils.getExtension(this.data) || 'tsv' === FileUtils.getExtension(this.data)) {
 
             let str
             try {
@@ -72,18 +72,7 @@ class GenericDataSource {
             }
 
             if (str) {
-                // const list = str.split('\n')
-                // const keys = list.shift().split(',').map(key => key.trim())
-                //
-                // const records = list.map(line => {
-                //     const keyValues = line.split(',').map((value, index) => [ keys[ index ], value.trim() ])
-                //     const entries = new Map(keyValues)
-                //     return Object.fromEntries(entries)
-                // })
-                //
-                // this.data = records
-
-                this.data = parseCSV(str)
+                this.data = 'csv' === FileUtils.getExtension(this.data) ? parseCSV(str) : this.parseTabData(str)
             }
 
         }
