@@ -1,6 +1,7 @@
 import getDataWrapper from './dataWrapper.js'
-import {igvxhr, FileUtils } from "../node_modules/igv-utils/src/index.js";
+import { igvxhr } from "../node_modules/igv-utils/src/index.js";
 
+const extensions = new Set([ 'csv', 'tab', 'json' ])
 class GenericDataSource {
 
     constructor(config) {
@@ -61,23 +62,29 @@ class GenericDataSource {
             }
         } else if (Array.isArray(this.data)) {
             return this.data
-        } else if ('csv' === FileUtils.getExtension(this.data) || 'tab' === FileUtils.getExtension(this.data)) {
+        } else if (extensions.has( GenericDataSource.getExtension(this.data) )) {
 
-            let str
+            let result
             try {
-                str = await igvxhr.loadString(this.data)
+                result = 'json' === GenericDataSource.getExtension(this.data) ? await igvxhr.loadJson(this.data) : await igvxhr.loadString(this.data)
             } catch (e){
                 console.error(e)
-                return undefined;
+                return undefined
             }
 
-            if (str) {
-                this.data = 'csv' === FileUtils.getExtension(this.data) ? parseCSV(str) : this.parseTabData(str)
+            if (result) {
+                if ('csv' === GenericDataSource.getExtension(this.data)) {
+                    return parseCSV(result)
+                } else if ('tab' === GenericDataSource.getExtension(this.data)) {
+                    return this.parseTabData(result)
+                } else {
+                    return result
+                }
             }
 
         }
 
-        return this.data
+        return undefined
     }
 
     parseTabData(str, filter) {
@@ -112,6 +119,16 @@ class GenericDataSource {
         return records;
     }
 
+    static getExtension(url) {
+
+        const path = (url instanceof File) ? url.name : url
+        const filename = path.toLowerCase()
+
+        const index = filename.lastIndexOf(".")
+
+        return index < 0 ? filename : filename.substr(1 + index)
+    }
+
 }
 
 function parseCSV(str) {
@@ -125,5 +142,6 @@ function parseCSV(str) {
     })
 
 }
+
 
 export default GenericDataSource
