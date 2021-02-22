@@ -1,6 +1,7 @@
 import getDataWrapper from './dataWrapper.js'
-import {igvxhr, FileUtils } from "../node_modules/igv-utils/src/index.js";
+import { igvxhr } from "../node_modules/igv-utils/src/index.js";
 
+const extensions = new Set([ 'csv', 'tab', 'json' ])
 class GenericDataSource {
 
     constructor(config) {
@@ -8,6 +9,7 @@ class GenericDataSource {
         this.columns = config.columns;   // Required for now, could default to all columns
         this.columnDefs = config.columnDefs       // optional
         this.rowHandler = config.rowHandler;      // optional
+        this.delimiter = config.delimiter         // optional
 
         if (config.data) {
             this.data = config.data;  // Explcitly set table rows as array of json objects
@@ -61,23 +63,31 @@ class GenericDataSource {
             }
         } else if (Array.isArray(this.data)) {
             return this.data
-        } else if ('csv' === FileUtils.getExtension(this.data) || 'tab' === FileUtils.getExtension(this.data)) {
+        } else if (extensions.has( (this.delimiter || GenericDataSource.getExtension(this.data)) )) {
 
-            let str
+            const extension = this.delimiter || GenericDataSource.getExtension(this.data)
+
+            let result
             try {
-                str = await igvxhr.loadString(this.data)
+                result = 'json' === extension ? await igvxhr.loadJson(this.data) : await igvxhr.loadString(this.data)
             } catch (e){
                 console.error(e)
-                return undefined;
+                return undefined
             }
 
-            if (str) {
-                this.data = 'csv' === FileUtils.getExtension(this.data) ? parseCSV(str) : this.parseTabData(str)
+            if (result) {
+
+                switch (extension) {
+                    case 'csv': return parseCSV(result)
+                    case 'tab': return this.parseTabData(result)
+                    default: /* json */ return result
+                }
+
             }
 
         }
 
-        return this.data
+        return undefined
     }
 
     parseTabData(str, filter) {
@@ -112,6 +122,16 @@ class GenericDataSource {
         return records;
     }
 
+    static getExtension(url) {
+
+        const path = (url instanceof File) ? url.name : url
+        const filename = path.toLowerCase()
+
+        const index = filename.lastIndexOf(".")
+
+        return index < 0 ? filename : filename.substr(1 + index)
+    }
+
 }
 
 function parseCSV(str) {
@@ -125,5 +145,6 @@ function parseCSV(str) {
     })
 
 }
+
 
 export default GenericDataSource
