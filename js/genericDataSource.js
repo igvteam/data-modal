@@ -61,7 +61,7 @@ class GenericDataSource {
             }
         } else if (Array.isArray(this.data)) {
             return this.data
-        } else if ('csv' === FileUtils.getExtension(this.data) || 'tsv' === FileUtils.getExtension(this.data)) {
+        } else if ('csv' === FileUtils.getExtension(this.data) || 'tab' === FileUtils.getExtension(this.data)) {
 
             let str
             try {
