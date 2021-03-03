@@ -1,6 +1,7 @@
 import getDataWrapper from './dataWrapper.js'
 import { igvxhr } from "../node_modules/igv-utils/src/index.js";
 
+const delimiters = new Set([ 'tab', 'comma' ])
 const extensions = new Set([ 'csv', 'tab', 'json' ])
 class GenericDataSource {
 
@@ -9,7 +10,11 @@ class GenericDataSource {
         this.columns = config.columns;   // Required for now, could default to all columns
         this.columnDefs = config.columnDefs       // optional
         this.rowHandler = config.rowHandler;      // optional
-        this.delimiter = config.delimiter         // optional
+
+        this.delimiter = undefined
+        if (config.delimiter) {
+            this.delimiter = config.delimiter
+        }
 
         if (config.data) {
             this.data = config.data;  // Explcitly set table rows as array of json objects
@@ -63,9 +68,9 @@ class GenericDataSource {
             }
         } else if (Array.isArray(this.data)) {
             return this.data
-        } else if (extensions.has( (this.delimiter || GenericDataSource.getExtension(this.data)) )) {
+        } else if ('json' === GenericDataSource.getExtension(this.data) || delimiters.has( getDelimiter(this.data, this.delimiter) )) {
 
-            const extension = this.delimiter || GenericDataSource.getExtension(this.data)
+            const extension = GenericDataSource.getExtension(this.data)
 
             let result
             try {
@@ -77,10 +82,13 @@ class GenericDataSource {
 
             if (result) {
 
-                switch (extension) {
-                    case 'csv': return parseCSV(result)
-                    case 'tab': return this.parseTabData(result)
-                    default: /* json */ return result
+                if ('json' === extension) {
+                    return result
+                } else {
+                    switch (this.delimiter) {
+                        case 'comma' : return parseCSV(result)
+                        case 'tab'   : return this.parseTabData(result)
+                    }
                 }
 
             }
@@ -132,6 +140,21 @@ class GenericDataSource {
         return index < 0 ? filename : filename.substr(1 + index)
     }
 
+}
+
+function getDelimiter(data, delimiter) {
+
+    if (undefined === delimiter) {
+        const extension = GenericDataSource.getExtension(this.data)
+
+        switch (extension) {
+            case 'tab' : return 'tab'
+            case 'csv' : return 'comma'
+            default: return undefined
+        }
+    } else {
+        return delimiters.has(delimiter) ? delimiter : undefined
+    }
 }
 
 function parseCSV(str) {
