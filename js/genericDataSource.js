@@ -64,7 +64,8 @@ class GenericDataSource {
                     records.sort(this.sort);
                 }
 
-                this.data = records
+                // this.data = records
+                return records
             }
         } else if (Array.isArray(this.data)) {
             return this.data
