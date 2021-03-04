@@ -1,5 +1,8 @@
 import getDataWrapper from './dataWrapper.js'
+import { igvxhr } from "../node_modules/igv-utils/src/index.js";
 
+const delimiters = new Set([ 'tab', 'comma' ])
+const extensions = new Set([ 'csv', 'tab', 'json' ])
 class GenericDataSource {
 
     constructor(config) {
@@ -7,6 +10,11 @@ class GenericDataSource {
         this.columns = config.columns;   // Required for now, could default to all columns
         this.columnDefs = config.columnDefs       // optional
         this.rowHandler = config.rowHandler;      // optional
+
+        this.delimiter = undefined
+        if (config.delimiter) {
+            this.delimiter = config.delimiter
+        }
 
         if (config.data) {
             this.data = config.data;  // Explcitly set table rows as array of json objects
@@ -25,7 +33,7 @@ class GenericDataSource {
 
     async tableData() {
 
-        if (!this.data) {
+        if (undefined === this.data) {
 
             let response = undefined;
             try {
@@ -56,13 +64,38 @@ class GenericDataSource {
                     records.sort(this.sort);
                 }
 
-
-
                 this.data = records
             }
+        } else if (Array.isArray(this.data)) {
+            return this.data
+        } else if ('json' === GenericDataSource.getExtension(this.data) || delimiters.has( getDelimiter(this.data, this.delimiter) )) {
+
+            const extension = GenericDataSource.getExtension(this.data)
+
+            let result
+            try {
+                result = 'json' === extension ? await igvxhr.loadJson(this.data) : await igvxhr.loadString(this.data)
+            } catch (e){
+                console.error(e)
+                return undefined
+            }
+
+            if (result) {
+
+                if ('json' === extension) {
+                    return result
+                } else {
+                    switch (this.delimiter) {
+                        case 'comma' : return parseCSV(result)
+                        case 'tab'   : return this.parseTabData(result)
+                    }
+                }
+
+            }
+
         }
 
-        return this.data
+        return undefined
     }
 
     parseTabData(str, filter) {
@@ -96,6 +129,43 @@ class GenericDataSource {
 
         return records;
     }
+
+    static getExtension(url) {
+
+        const path = (url instanceof File) ? url.name : url
+        const filename = path.toLowerCase()
+
+        const index = filename.lastIndexOf(".")
+
+        return index < 0 ? filename : filename.substr(1 + index)
+    }
+
+}
+
+function getDelimiter(data, delimiter) {
+
+    if (undefined === delimiter) {
+        const extension = GenericDataSource.getExtension(this.data)
+
+        switch (extension) {
+            case 'tab' : return 'tab'
+            case 'csv' : return 'comma'
+            default: return undefined
+        }
+    } else {
+        return delimiters.has(delimiter) ? delimiter : undefined
+    }
+}
+
+function parseCSV(str) {
+
+    const list = str.split('\n')
+    const keys = list.shift().split(',').map(key => key.trim())
+
+    return list.map(line => {
+        const keyValues = line.split(',').map((value, index) => [ keys[ index ], value.trim() ])
+        return Object.fromEntries( new Map(keyValues) )
+    })
 
 }
 
