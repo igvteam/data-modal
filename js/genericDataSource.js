@@ -146,7 +146,7 @@ class GenericDataSource {
 function getDelimiter(data, delimiter) {
 
     if (undefined === delimiter) {
-        const extension = GenericDataSource.getExtension(this.data)
+        const extension = GenericDataSource.getExtension(data)
 
         switch (extension) {
             case 'tab' : return 'tab'
