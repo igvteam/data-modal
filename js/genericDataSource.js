@@ -134,10 +134,18 @@ class GenericDataSource {
     static getExtension(url) {
 
         const path = (url instanceof File) ? url.name : url
-        const filename = path.toLowerCase()
 
-        const index = filename.lastIndexOf(".")
+        // Strip parameters (handles Dropbox URLs)
+        let filename = path.toLowerCase()
 
+        let index
+
+        index = filename.indexOf('?')
+        if (index > 0) {
+            filename = filename.substr(0, index)
+        }
+
+        index = filename.lastIndexOf(".")
         return index < 0 ? filename : filename.substr(1 + index)
     }
 
