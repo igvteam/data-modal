@@ -164,7 +164,14 @@ class ModalTable {
                 result.push(tableData[index])
             })
             if (typeof this.datasource.rowHandler === 'function') {
-                return result.map(selectedRow => this.datasource.rowHandler(selectedRow));
+
+                const config = result.map(row => {
+                    const thang = this.datasource.rowHandler(row)
+                    thang.metadata = row
+                    return thang
+                })
+
+                return config
             } else {
                 return result;
             }
