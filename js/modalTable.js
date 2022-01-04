@@ -167,7 +167,11 @@ class ModalTable {
 
                 const config = result.map(row => {
                     const thang = this.datasource.rowHandler(row)
-                    thang.metadata = row
+                    const filteredKeys = Object.keys(row).filter(key => this.datasource.columns.includes(key))
+                    thang.metadata = {}
+                    for (let key of filteredKeys) {
+                        thang.metadata[ key ] = row[ key ]
+                    }
                     return thang
                 })
 

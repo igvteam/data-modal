@@ -7086,14 +7086,17 @@ class ModalTable {
             const api = this.$table.api();
             $rows.each(function () {
                 const index = api.row(this).index();
-                const thang = tableData[index];
-                result.push(thang);
+                result.push(tableData[index]);
             });
             if (typeof this.datasource.rowHandler === 'function') {
 
                 const config = result.map(row => {
                     const thang = this.datasource.rowHandler(row);
-                    thang.metadata = row;
+                    const filteredKeys = Object.keys(row).filter(key => this.datasource.columns.includes(key));
+                    thang.metadata = {};
+                    for (let key of filteredKeys) {
+                        thang.metadata[ key ] = row[ key ];
+                    }
                     return thang
                 });
 
