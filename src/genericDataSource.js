@@ -1,6 +1,5 @@
 import getDataWrapper from './dataWrapper.js'
-import {igvxhr} from "../node_modules/igv-utils/src/index.js"
-
+import stringLoader from "./stringLoader.js"
 
 const delimiters = new Set(['\t', ','])
 
@@ -8,9 +7,10 @@ class GenericDataSource {
 
     constructor(config) {
 
+        this.stringLoader = config.igvxhr ? config.igvxhr : stringLoader
         this.columns = config.columns   // Required for now, could default to all columns
         this.columnDefs = config.columnDefs       // optional
-        this.rowHandler = config.rowHandler      // optional
+        this.rowHandler = config.rowHandler// optional
 
         this.delimiter = undefined
         if (config.delimiter) {
@@ -38,7 +38,7 @@ class GenericDataSource {
 
             let str = undefined
             try {
-                str = await igvxhr.loadString(this.url)
+                str = await this.stringLoader.loadString(this.url)
             } catch (e) {
                 console.error(e)
                 return undefined
@@ -74,7 +74,7 @@ class GenericDataSource {
 
             let result
             try {
-                result = 'json' === extension ? await igvxhr.loadJson(this.data) : await igvxhr.loadString(this.data)
+                result = 'json' === extension ? await this.stringLoader.loadJson(this.data) : await this.stringLoader.loadString(this.data)
             } catch (e) {
                 console.error(e)
                 return undefined

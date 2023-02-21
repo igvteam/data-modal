@@ -26,7 +26,7 @@
  *
  */
 
-import ModalTable from '../js/modalTable.js'
+import ModalTable from '../src/modalTable.js'
 
 class TestDataSource {
 

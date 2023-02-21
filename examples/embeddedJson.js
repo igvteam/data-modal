@@ -26,8 +26,8 @@
  *
  */
 
-import ModalTable from '../js/modalTable.js'
-import GenericDataSource from "../js/genericDataSource.js";
+import ModalTable from '../src/modalTable.js'
+import GenericDataSource from "../src/genericDataSource.js";
 
 // Read table data from a tab-delimited file  (ENCODE tracks for genome dm3)
 
