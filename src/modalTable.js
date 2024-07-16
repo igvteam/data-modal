@@ -13,88 +13,52 @@ class ModalTable {
             this.select = true;
         }
 
-        const id = args.id
-        const title = args.title || ''
-        const parent = args.parent ? $(args.parent) : $('body')
-        const html = `
-        <div id="${id}" class="modal fade">
-        
-            <div class="modal-dialog modal-xl">
-        
-                <div class="modal-content">
-        
-                    <div class="modal-header">
-                        <div class="modal-title">${title}</div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-        
-                    <div class="modal-body">
-        
-                        <div id="${id}-spinner" class="spinner-border" style="display: none;">
-                            <!-- spinner -->
-                        </div>
-        
-                        <div id="${id}-datatable-container">
-        
-                        </div>
-                        
-                        <!-- description -->
-                        <div>
-                        </div>
-                    </div>
-        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">OK</button>
-                    </div>
-        
-                </div>
-        
-            </div>
-        
-        </div>
-    `
-        const $m = $(html)
-        parent.append($m)
+        const parent = args.parent || document.querySelector('body')
 
-        this.$modal = $m
-        this.$datatableContainer = $m.find(`#${id}-datatable-container`)
-        this.$spinner = $m.find(`#${id}-spinner`)
-        const $okButton = $m.find('.modal-footer button:nth-child(2)')
+        const modal = getModalHTML((args.title || ''), args.id)
 
-        $m.on('shown.bs.modal', (e) => {
-            this.buildTable()
+        parent.appendChild(modal)
+
+        this.modal = modal
+        this.datatableContainer = document.getElementById(`${args.id}-datatable-container`)
+        this.spinner = document.getElementById(`${args.id}-spinner`)
+
+        modal.addEventListener('shown.bs.modal', e => this.buildTable())
+
+        modal.addEventListener('hidden.bs.modal', event => {
+            const trList = event.relatedTarget.querySelector('tr.selected')
+            for (const tr of trList) {
+                tr.classList.remove('selected')
+            }
         })
 
-        $m.on('hidden.bs.modal', (e) => {
-            $(e.relatedTarget).find('tr.selected').removeClass('selected')
-        })
-
-        $okButton.on('click', (e) => {
+        const modalFooter = modal.querySelector('.modal-footer')
+        const okButton = modalFooter.querySelector('button:nth-child(2)')
+        okButton.addEventListener('click', () => {
             const selected = this.getSelectedTableRowsData.call(this, this.$dataTable.$('tr.selected'))
             if (selected && this.okHandler) {
                 this.okHandler(selected)
             }
         })
+
     }
 
     setTitle(title) {
-        this.$modal.find('.modal-title').text(`${ title }`)
+        const el = this.modal.querySelector('.modal')
+        el.innerText = `${ title }`
     }
 
     setDescription(description) {
-        this.$modal.find('.modal-body').children().last().html(`${ description }`)
+        this.modal.querySelector('.modal-body').lastElementChild.innerHTML = `${description}`;
     }
 
     remove() {
-        this.$modal.remove()
+        this.modal.parentNode.removeChild(this.modal);
     }
 
     setDatasource(datasource) {
         this.datasource = datasource
-        this.$datatableContainer.empty()
+        this.datatableContainer.innerHTML = ''
         this.$table = undefined
     }
 
@@ -103,7 +67,7 @@ class ModalTable {
         if (!this.$table && this.datasource) {
 
             this.$table = $('<table class="display"></table>')
-            this.$datatableContainer.append(this.$table)
+            this.datatableContainer.appendChild(this.$table.get(0))
 
             try {
                 this.startSpinner()
@@ -185,14 +149,59 @@ class ModalTable {
     }
 
     startSpinner() {
-        if (this.$spinner)
-            this.$spinner.show()
+        if (this.spinner) this.spinner.style.display = 'none'
     }
 
     stopSpinner() {
-        if (this.$spinner)
-            this.$spinner.hide()
+        if (this.spinner) this.spinner.style.display = 'block'
     }
+
+}
+
+function getModalHTML(title, id) {
+    const html =
+        `<div id="${id}" class="modal fade">
+        
+            <div class="modal-dialog modal-xl">
+        
+                <div class="modal-content">
+        
+                    <div class="modal-header">
+                        <div class="modal-title">${title}</div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+        
+                    <div class="modal-body">
+        
+                        <div id="${id}-spinner" class="spinner-border" style="display: none;">
+                            <!-- spinner -->
+                        </div>
+        
+                        <div id="${id}-datatable-container">
+        
+                        </div>
+                        
+                        <!-- description -->
+                        <div>
+                        </div>
+                    </div>
+        
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">OK</button>
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+        </div>`
+
+    const fragment = document.createRange().createContextualFragment(html)
+
+    return fragment.firstChild
 
 }
 
