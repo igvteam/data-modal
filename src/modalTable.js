@@ -13,26 +13,18 @@ class ModalTable {
             this.select = true;
         }
 
+        const modelElement = createModalElement((args.title || ''), args.id)
         const parent = args.parent || document.querySelector('body')
+        parent.appendChild(modelElement)
+        this.modalElement = modelElement
 
-        const modal = getModalHTML((args.title || ''), args.id)
-
-        parent.appendChild(modal)
-
-        this.modal = modal
+        this.modal = new bootstrap.Modal(modelElement)
         this.datatableContainer = document.getElementById(`${args.id}-datatable-container`)
         this.spinner = document.getElementById(`${args.id}-spinner`)
 
-        modal.addEventListener('shown.bs.modal', e => this.buildTable())
+        modelElement.addEventListener('shown.bs.modal', e => this.buildTable())
 
-        modal.addEventListener('hidden.bs.modal', event => {
-            const trList = event.relatedTarget.querySelector('tr.selected')
-            for (const tr of trList) {
-                tr.classList.remove('selected')
-            }
-        })
-
-        const modalFooter = modal.querySelector('.modal-footer')
+        const modalFooter = modelElement.querySelector('.modal-footer')
         const okButton = modalFooter.querySelector('button:nth-child(2)')
         okButton.addEventListener('click', () => {
             const selected = this.getSelectedTableRowsData.call(this, this.$dataTable.$('tr.selected'))
@@ -44,16 +36,16 @@ class ModalTable {
     }
 
     setTitle(title) {
-        const el = this.modal.querySelector('.modal')
+        const el = this.modalElement.querySelector('.modal')
         el.innerText = `${ title }`
     }
 
     setDescription(description) {
-        this.modal.querySelector('.modal-body').lastElementChild.innerHTML = `${description}`;
+        this.modalElement.querySelector('.modal-body').lastElementChild.innerHTML = `${description}`
     }
 
     remove() {
-        this.modal.parentNode.removeChild(this.modal);
+        this.modalElement.parentNode.removeChild(this.modalElement)
     }
 
     setDatasource(datasource) {
@@ -149,55 +141,54 @@ class ModalTable {
     }
 
     startSpinner() {
-        if (this.spinner) this.spinner.style.display = 'none'
+        if (this.spinner) this.spinner.style.display = 'block'
     }
 
     stopSpinner() {
-        if (this.spinner) this.spinner.style.display = 'block'
+        if (this.spinner) this.spinner.style.display = 'none'
     }
 
 }
 
-function getModalHTML(title, id) {
+function createModalElement(title, id) {
+
     const html =
-        `<div id="${id}" class="modal fade">
-        
-            <div class="modal-dialog modal-xl">
-        
-                <div class="modal-content">
-        
-                    <div class="modal-header">
-                        <div class="modal-title">${title}</div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-        
-                    <div class="modal-body">
-        
-                        <div id="${id}-spinner" class="spinner-border" style="display: none;">
-                            <!-- spinner -->
-                        </div>
-        
-                        <div id="${id}-datatable-container">
-        
-                        </div>
-                        
-                        <!-- description -->
-                        <div>
-                        </div>
-                    </div>
-        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">OK</button>
-                    </div>
-        
+    `<div id="${id}" class="modal fade" tabindex="-1">
+    
+        <div class="modal-dialog modal-xl">
+    
+            <div class="modal-content">
+    
+                <div class="modal-header">
+                    <div class="modal-title">${title}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-        
+    
+                <div class="modal-body">
+    
+                    <div id="${id}-spinner" class="spinner-border" style="display: none;">
+                        <!-- spinner -->
+                    </div>
+    
+                    <div id="${id}-datatable-container">
+    
+                    </div>
+                    
+                    <!-- description -->
+                    <div>
+                    </div>
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">OK</button>
+                </div>
+    
             </div>
-        
-        </div>`
+    
+        </div>
+    
+    </div>`
 
     const fragment = document.createRange().createContextualFragment(html)
 
