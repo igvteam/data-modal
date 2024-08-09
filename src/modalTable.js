@@ -36,7 +36,7 @@ class ModalTable {
     }
 
     setTitle(title) {
-        const el = this.modalElement.querySelector('.modal')
+        const el = this.modalElement.querySelector('.modal-title')
         el.innerText = `${ title }`
     }
 
