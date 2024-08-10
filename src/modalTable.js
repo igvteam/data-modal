@@ -41,7 +41,8 @@ class ModalTable {
     }
 
     setDescription(description) {
-        this.modalElement.querySelector('.modal-body').lastElementChild.innerHTML = `${description}`
+        // this.modalElement.querySelector('.modal-body').lastElementChild.innerHTML = `${description}`
+        this.modalElement.querySelector('.modal-body').firstElementChild.innerHTML = `${description}`
     }
 
     remove() {
@@ -165,7 +166,10 @@ function createModalElement(title, id) {
                 </div>
     
                 <div class="modal-body">
-    
+                    <!-- description -->
+                    <div style="font-size: 0.9rem; padding-bottom: 0.75rem">
+                    </div>
+
                     <div id="${id}-spinner" class="spinner-border" style="display: none;">
                         <!-- spinner -->
                     </div>
@@ -174,9 +178,6 @@ function createModalElement(title, id) {
     
                     </div>
                     
-                    <!-- description -->
-                    <div>
-                    </div>
                 </div>
     
                 <div class="modal-footer">

@@ -78,5 +78,6 @@ const simpleModalConfig =
     }
 
 const customSourceModal = new ModalTable(simpleModalConfig)
+customSourceModal.setDescription('This is the Description')
 
 
