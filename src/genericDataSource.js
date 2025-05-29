@@ -106,7 +106,7 @@ class GenericDataSource {
         const dataWrapper = getDataWrapper(str)
 
         const headerLine = dataWrapper.nextLine()  // Skip header
-        const headers = headerLine.split('\t')
+        const headers = headerLine.split('\t').map(key => key.trim())
 
         const records = []
         let line
@@ -115,7 +115,7 @@ class GenericDataSource {
 
             const record = {}
 
-            const tokens = line.split(`\t`)
+            const tokens = line.split(`\t`).map(key => key.trim())
             if (tokens.length !== headers.length) {
                 throw Error("Number of values must equal number of headers in file " + this.url)
             }
